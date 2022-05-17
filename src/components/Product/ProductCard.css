@@ -1,0 +1,19 @@
+.card-root {
+  max-width: 100%;
+}
+
+.card-media {
+  height: 0;
+  /* padding: 56.25%; */
+  padding: 25%;
+}
+
+.card-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+}
