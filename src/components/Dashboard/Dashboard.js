@@ -1,39 +1,38 @@
 import React from "react";
-import "./Dashboard.css";
-
+import { Link } from "react-router-dom";
 import {
   Box,
   Button,
   Card,
-  CardMedia,
   CardContent,
   CardActions,
   Typography,
-  IconButton,
 } from "@material-ui/core";
-
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  >
-    •
-  </Box>
-);
+import "./Dashboard.css";
 
 const Dashboard = ({ allOrders }) => {
-  let timeOfDay;
+  // let timeOfDay;
   let loggedInUser = "Alen";
   const date = new Date();
   const hours = date.getHours();
 
-  if (hours < 12) {
-    timeOfDay = "Good morning ";
-  } else if (hours >= 12 && hours < 17) {
-    timeOfDay = "Good afternoon ";
-  } else {
-    timeOfDay = "Good evening ";
-  }
+  const timeOfDay = () => {
+    if (hours < 12) {
+      return "Good morning ";
+    } else if (hours >= 12 && hours < 17) {
+      return "Good afternoon ";
+    }
+    return "Good evening ";
+  };
+
+  const bull = (
+    <Box
+      component="span"
+      sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
+    >
+      •
+    </Box>
+  );
 
   const card = (
     <React.Fragment>
@@ -45,7 +44,7 @@ const Dashboard = ({ allOrders }) => {
           component="div"
           gutterBottom
         >
-          {timeOfDay}
+          {timeOfDay()}
           {bull}
           {loggedInUser}
         </Typography>
@@ -57,7 +56,13 @@ const Dashboard = ({ allOrders }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" color="primary" variant="outlined">
+        <Button
+          size="small"
+          color="primary"
+          variant="outlined"
+          component={Link}
+          to="/products"
+        >
           Place Order
         </Button>
         <Button size="small" color="info" variant="outlined">

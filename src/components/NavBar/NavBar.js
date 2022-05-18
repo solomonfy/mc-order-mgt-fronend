@@ -33,7 +33,7 @@ const NavBar = ({ cartItems }) => {
           Agent name goes here
         </Typography>
         <div className={classes.grow} />
-        {location.pathname === "/" && (
+        {location.pathname !== "/cart" && (
           <div className={classes.button}>
             <IconButton
               aria-label="Show Cart Items"

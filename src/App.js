@@ -3,7 +3,7 @@ import Products from "./containers/Products/Products";
 import NavBar from "./components/NavBar/NavBar";
 import Cart from "./components/Cart/Cart";
 import Dashboard from "./components/Dashboard/Dashboard";
-import Loader from "./components/Loader";
+// import Loader from "./components/Loader";
 import "./App.css";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -115,17 +115,15 @@ const App = () => {
         <div>
           <NavBar cartItems={cart} />
           <Routes>
+            <Route path="/" element={<Dashboard />} />
             <Route
-              path="/"
+              path="/products"
               element={
-                <>
-                  <Dashboard />
-                  <Products
-                    products={products}
-                    onAddToCart={handleAddToCart}
-                    cartItems={cart}
-                  />
-                </>
+                <Products
+                  products={products}
+                  onAddToCart={handleAddToCart}
+                  cartItems={cart}
+                />
               }
             />
             <Route

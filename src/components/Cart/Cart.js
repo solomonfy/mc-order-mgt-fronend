@@ -12,6 +12,7 @@ import {
   Typography,
   TextField,
 } from "@material-ui/core";
+import DeleteForeverSharpIcon from "@material-ui/icons/DeleteForeverSharp";
 
 import { Link } from "react-router-dom";
 import useStyles from "./cart-styles";
@@ -72,11 +73,8 @@ export default function Cart({ cartItems, removeFromCart, emptyCart }) {
       <>
         <Typography variant="subtitle1" gutterBottom>
           No product available in the cart, {}
-          <Link to="/">add products now</Link>
+          <Link to="/products">add products now</Link>
         </Typography>
-        {/* <Typography variant="subtitle2" component={Link} to="/">
-          Add products
-        </Typography> */}
       </>
     );
   };
@@ -84,6 +82,16 @@ export default function Cart({ cartItems, removeFromCart, emptyCart }) {
   const FilledCart = () => {
     return (
       <>
+        <Typography
+          variant="subtitle1"
+          to="/products"
+          component={Link}
+          gutterBottom
+          mt={4}
+          mb={4}
+        >
+          Add more Products
+        </Typography>
         <TableContainer component={Paper} gutterBottom>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -95,7 +103,7 @@ export default function Cart({ cartItems, removeFromCart, emptyCart }) {
                 <TableCell align="center">Unit Price&nbsp;</TableCell>
                 <TableCell align="center">Quantity&nbsp;</TableCell>
                 <TableCell align="center">Subtotal &nbsp;</TableCell>
-                <TableCell align="center"> Remove from Cart &nbsp;</TableCell>
+                <TableCell align="center"></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -122,60 +130,43 @@ export default function Cart({ cartItems, removeFromCart, emptyCart }) {
                   </TableCell>
                   <TableCell align="right">${row.unitPrice * 100}</TableCell>
                   <TableCell align="right">
-                    <Button
+                    <DeleteForeverSharpIcon
                       className={classes.emptyButton}
                       size="large"
                       type="button"
                       variant="contained"
                       color="secondary"
                       onClick={() => removeFromCart(row.id)}
-                    >
-                      X
-                    </Button>
+                    ></DeleteForeverSharpIcon>
                   </TableCell>
                 </TableRow>
               ))}
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row" variant="h4">
-                  Total
-                </TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-                <TableCell>${subtotal}</TableCell>
-              </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
         <div className={classes.cardDetails}>
-          <Typography variant="h6" gutterBottom mt={4}>
+          <Typography variant="h6" gutterBottom mt={10} mb={10}>
             Subtotal: ${subtotal}
           </Typography>
-          <div>
-            <Button
-              className={classes.emptyButton}
-              size="large"
-              type="button"
-              variant="contained"
-              color="secondary"
-              onClick={emptyCart}
-            >
-              Empty Cart
-            </Button>
-            <Button
-              className={classes.chechoutButton}
-              size="large"
-              type="button"
-              variant="contained"
-              color="primary"
-            >
-              Submit Order
-            </Button>
-          </div>
+          <Button
+            className={classes.emptyButton}
+            size="large"
+            type="button"
+            variant="contained"
+            color="secondary"
+            onClick={emptyCart}
+          >
+            Empty Cart
+          </Button>
+          <Button
+            className={classes.chechoutButton}
+            size="large"
+            type="button"
+            variant="contained"
+            color="primary"
+          >
+            Submit Order
+          </Button>
         </div>
       </>
     );
