@@ -43,9 +43,10 @@ function ProductCard({ product, onAddToCart, cartItems }) {
       <CardContent>
         <div className="card-content">
           <Typography variant="h5" gutterBottom>
-            {product.brandName} {product.strength}
+            {product.brandName.toUpperCase()} {}
+            <Typography variant="overline">{product.strength}</Typography>
           </Typography>
-          <Typography variant="h5">$ {product.unitPrice}</Typography>
+          <Typography variant="subtitle1">${product.unitPrice}</Typography>
         </div>
         <Typography variant="body2" color="textSecondary">
           {" "}
@@ -53,14 +54,15 @@ function ProductCard({ product, onAddToCart, cartItems }) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing className="card-actions">
-        {!isProductInCart(product.id) && (
-          <IconButton
-            arial-label="Add to Cart"
-            onClick={() => onAddToCart(product, 100)}
-          >
-            <AddShoppingCart />
-          </IconButton>
-        )}
+        {/* {!isProductInCart(product.id) && ( )} */}
+        <IconButton
+          arial-label="Add to Cart"
+          onClick={() => onAddToCart(product, 100)}
+          disabled={isProductInCart(product.id)}
+          color="primary"
+        >
+          <AddShoppingCart />
+        </IconButton>
       </CardActions>
     </Card>
   );

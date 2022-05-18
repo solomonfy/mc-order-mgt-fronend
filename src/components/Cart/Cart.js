@@ -14,7 +14,6 @@ import {
 } from "@material-ui/core";
 
 import { Link } from "react-router-dom";
-
 import useStyles from "./cart-styles";
 
 export default function Cart({ cartItems, removeFromCart, emptyCart }) {
@@ -33,7 +32,15 @@ export default function Cart({ cartItems, removeFromCart, emptyCart }) {
     unitPrice,
     formulation
   ) {
-    return { id, brandName, genericName, strength, packSize, unitPrice, formulation };
+    return {
+      id,
+      brandName,
+      genericName,
+      strength,
+      packSize,
+      unitPrice,
+      formulation,
+    };
   }
 
   for (const item of cartItems) {
@@ -64,10 +71,8 @@ export default function Cart({ cartItems, removeFromCart, emptyCart }) {
     return (
       <>
         <Typography variant="subtitle1" gutterBottom>
-          No product available in the cart, { } 
-          <Link to="/">
-             add products now
-          </Link>
+          No product available in the cart, {}
+          <Link to="/">add products now</Link>
         </Typography>
         {/* <Typography variant="subtitle2" component={Link} to="/">
           Add products

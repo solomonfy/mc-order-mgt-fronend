@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Products from "./containers/Products/Products";
 import NavBar from "./components/NavBar/NavBar";
 import Cart from "./components/Cart/Cart";
+import Dashboard from "./components/Dashboard/Dashboard";
 import Loader from "./components/Loader";
 import "./App.css";
 
@@ -117,11 +118,14 @@ const App = () => {
             <Route
               path="/"
               element={
-                <Products
-                  products={products}
-                  onAddToCart={handleAddToCart}
-                  cartItems={cart}
-                />
+                <>
+                  <Dashboard />
+                  <Products
+                    products={products}
+                    onAddToCart={handleAddToCart}
+                    cartItems={cart}
+                  />
+                </>
               }
             />
             <Route

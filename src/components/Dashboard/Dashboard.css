@@ -1,0 +1,14 @@
+.home-page {
+  padding-top: 50px;
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.greeting-card {
+  min-height: 150px;
+  /* background: #121213; */
+  outline: none;
+  border-radius: 5px;
+}
