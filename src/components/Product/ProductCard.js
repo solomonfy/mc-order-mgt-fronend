@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import { AddShoppingCart } from "@material-ui/icons";
 import "./ProductCard.css";
+import { Link } from "react-router-dom";
 
 function ProductCard({ product, onAddToCart, cartItems }) {
   var randomImage = null;
@@ -39,6 +40,8 @@ function ProductCard({ product, onAddToCart, cartItems }) {
         className="card-media"
         image={randomImage}
         title={product.brandName}
+        component={Link}
+        to="/product-detail"
       />
       <CardContent>
         <div className="card-content">
@@ -50,7 +53,8 @@ function ProductCard({ product, onAddToCart, cartItems }) {
         </div>
         <Typography variant="body2" color="textSecondary">
           {" "}
-          {product.genericName} {capitalizeFirstLetter(product.formulation)}
+          {product.genericName} {capitalizeFirstLetter(product.formulation)} (
+          {product.packSize})
         </Typography>
       </CardContent>
       <CardActions disableSpacing className="card-actions">

@@ -18,11 +18,11 @@ const Dashboard = ({ allOrders }) => {
 
   const timeOfDay = () => {
     if (hours < 12) {
-      return "Good morning ";
+      return "Good morning";
     } else if (hours >= 12 && hours < 17) {
-      return "Good afternoon ";
+      return "Good afternoon";
     }
-    return "Good evening ";
+    return "Good evening";
   };
 
   const bull = (

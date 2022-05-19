@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Products from "./containers/Products/Products";
-import NavBar from "./components/NavBar/NavBar";
-import Cart from "./components/Cart/Cart";
-import Dashboard from "./components/Dashboard/Dashboard";
-// import Loader from "./components/Loader";
-import "./App.css";
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import Products from "./containers/Products/Products";
+import { NavBar, Cart, Dashboard, ProductDetail, Loader, Checkout } from "./components/";
+import "./App.css";
 
 const App = () => {
   const agentId = "61a905c174dce215a9daf103";
@@ -101,18 +98,14 @@ const App = () => {
   };
 
   if (loading) {
-    return (
-      <>
-        <h1>Loading....</h1>
-        {/* <Loader/> */}
-      </>
-    );
+    return <Loader />;
   }
 
   if (!loading) {
     return (
       <Router>
         <div>
+          {/* <PrimarySearchAppBar/> */}
           <NavBar cartItems={cart} />
           <Routes>
             <Route path="/" element={<Dashboard />} />
@@ -132,10 +125,13 @@ const App = () => {
                 <Cart
                   cartItems={cart}
                   removeFromCart={removeFromCart}
-                  emptyCart={emptyCart}
+                  handleEmptyCart={emptyCart}
                 />
               }
             />
+
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/product-detail" element={<ProductDetail />} />
           </Routes>
         </div>
       </Router>

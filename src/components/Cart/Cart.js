@@ -17,7 +17,7 @@ import DeleteForeverSharpIcon from "@material-ui/icons/DeleteForeverSharp";
 import { Link } from "react-router-dom";
 import useStyles from "./cart-styles";
 
-export default function Cart({ cartItems, removeFromCart, emptyCart }) {
+export default function Cart({ cartItems, removeFromCart, handleEmptyCart }) {
   const classes = useStyles();
 
   const isEmpty = cartItems.length === 0;
@@ -73,7 +73,9 @@ export default function Cart({ cartItems, removeFromCart, emptyCart }) {
       <>
         <Typography variant="subtitle1" gutterBottom>
           No product available in the cart, {}
-          <Link to="/products">add products now</Link>
+          <Link to="/products" className={classes.link}>
+            add products now
+          </Link>
         </Typography>
       </>
     );
@@ -86,9 +88,9 @@ export default function Cart({ cartItems, removeFromCart, emptyCart }) {
           variant="subtitle1"
           to="/products"
           component={Link}
-          gutterBottom
-          mt={4}
-          mb={4}
+          // gutterBottom
+          // mt={8}
+          mb={12}
         >
           Add more Products
         </Typography>
@@ -148,22 +150,36 @@ export default function Cart({ cartItems, removeFromCart, emptyCart }) {
           <Typography variant="h6" gutterBottom mt={10} mb={10}>
             Subtotal: ${subtotal}
           </Typography>
+        </div>
+        <div className={classes.cardButtons}>
           <Button
             className={classes.emptyButton}
-            size="large"
+            size="small"
             type="button"
             variant="contained"
             color="secondary"
-            onClick={emptyCart}
+            onClick={handleEmptyCart}
           >
             Empty Cart
           </Button>
           <Button
-            className={classes.chechoutButton}
-            size="large"
+            size="small"
             type="button"
             variant="contained"
             color="primary"
+            to="/checkout"
+            component={Link}
+          >
+            Save as Draft
+          </Button>
+          <Button
+            className={classes.chechoutButton}
+            size="small"
+            type="button"
+            variant="contained"
+            color="primary"
+            to="/checkout"
+            component={Link}
           >
             Submit Order
           </Button>
@@ -175,7 +191,13 @@ export default function Cart({ cartItems, removeFromCart, emptyCart }) {
   return (
     <Container>
       <div className={classes.toolbar} />
-      <Typography className={classes.title} variant="h4" gutterBottom mt={2}>
+      {/* <div className={classes.header}></div> */}
+      <Typography
+        className={(classes.title, classes.header)}
+        variant="h4"
+        gutterBottom
+        mt={2}
+      >
         Shopping Cart
       </Typography>
       {isEmpty ? <EmptyCart /> : <FilledCart />}
