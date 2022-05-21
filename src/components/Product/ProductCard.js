@@ -20,7 +20,6 @@ function ProductCard({ product, onAddToCart, cartItems }) {
   }
 
   const isProductInCart = (productId) => {
-    // console.log(productId);
     if (cartItems.length < 1) return;
     for (let i = 0; i < cartItems.length; i++) {
       let inCart = false;

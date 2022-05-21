@@ -5,7 +5,7 @@ import Order from "../../components/Order/Order";
 export default function OrderContainer({ orders, agentOrders }) {
   return (
     <div>
-      <Order allOrders={orders} agentOrders={agentOrders}/>
+      <Order agentOrders={agentOrders} />
     </div>
   );
 }

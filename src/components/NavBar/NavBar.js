@@ -92,7 +92,7 @@ const NavBar = ({ cartItems }) => {
 
   return (
     <>
-      <AppBar position="fixed" className={classes.appBar} color="inherit">
+      <AppBar position="fixed" className={classes.appBar} color="primary">
         <Toolbar>
           <Typography
             variant="h6"
@@ -114,16 +114,16 @@ const NavBar = ({ cartItems }) => {
           <div className={classes.grow} />
 
           <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              // aria-controls={menuId}
-              aria-haspopup="true"
-              // onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
+            size="medium"
+            edge="end"
+            aria-label="account of current user"
+            // aria-controls={menuId}
+            aria-haspopup="true"
+            // onClick={handleProfileMenuOpen}
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
 
           {location.pathname !== "/cart" && (
             <div className={classes.button}>

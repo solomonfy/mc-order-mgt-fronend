@@ -9,8 +9,9 @@ import {
   Typography,
 } from "@material-ui/core";
 import "./Dashboard.css";
+import OrderSummary from "../../components/Order/OrderSummary/OrderSummary";
 
-const Dashboard = ({ allOrders }) => {
+const Dashboard = ({ allOrders, agentOrders }) => {
   // let timeOfDay;
   let loggedInUser = "Alen";
   const date = new Date();
@@ -73,9 +74,16 @@ const Dashboard = ({ allOrders }) => {
   );
 
   return (
-    <Box sx={{ maxWidth: 500 }} mt={12} mb={6}>
-      <Card variant="outlined">{card}</Card>
-    </Box>
+    <div className="dashboard-container">
+      <div className="dashboard-greeting">
+        <Box sx={{ maxWidth: 500 }} mt={12} mb={6}>
+          <Card variant="outlined">{card}</Card>
+        </Box>
+      </div>
+      <div className="dashboard-summary">
+        <OrderSummary agentOrders={agentOrders} />
+      </div>
+    </div>
   );
 };
 

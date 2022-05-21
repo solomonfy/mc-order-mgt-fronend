@@ -1,4 +1,22 @@
-.home-page {
+.dashboard-container {
+  display: flex;
+}
+
+.dashboard-greeting {
+  flex: 1;
+}
+
+.dashboard-summary {
+  margin-top: 50px;
+  margin-right: 200px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 10px
+  /* padding-top: 50px; */
+}
+
+/* .home-page {
   padding-top: 50px;
   display: flex;
   gap: 3rem;
@@ -8,7 +26,7 @@
 
 .greeting-card {
   min-height: 150px;
-  /* background: #121213; */
+  background: #121213;
   outline: none;
   border-radius: 5px;
-}
+} */

@@ -1,0 +1,16 @@
+.order-main {
+  padding-top: 5rem;
+}
+
+.order-summary-main {
+  position: relative;
+  padding: 20px;
+  align-self: right;
+}
+
+.title {
+  text-align: center;
+  background: #61a3a3;
+  font-size: 16px;
+  border-radius: 10px;
+}

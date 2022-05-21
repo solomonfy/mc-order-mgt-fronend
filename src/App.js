@@ -2,7 +2,15 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Products from "./containers/Products/Products";
-import { NavBar, Cart, Dashboard, ProductDetail, Loader, Checkout } from "./components/";
+import OrderContainer from "./containers/OrderContainer/OrderContainer";
+import {
+  NavBar,
+  Cart,
+  Dashboard,
+  ProductDetail,
+  Loader,
+  Checkout,
+} from "./components/";
 import "./App.css";
 
 const App = () => {
@@ -18,10 +26,11 @@ const App = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState({});
-  // const [orders, setOrders] = useState([]);
-  // const [agentOrders, setAgentOrders] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [agentOrders, setAgentOrders] = useState([]);
   // const [tasks, setTasks] = useState([]);
   const [cart, setCart] = useState([]);
+  const [itemQty, setQty] = useState({});
 
   const fetchProducts = () => {
     fetch(PRODUCT_URL)
@@ -35,33 +44,33 @@ const App = () => {
       });
   };
 
-  // const fetchOrders = () => {
-  //   fetch(ORDER_URL, {
-  //     method: "GET",
-  //   })
-  //     .then((resp) => resp.json())
-  //     .then((data) => {
-  //       setOrders(data.data.orders);
-  //       setLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       setError(error);
-  //     });
-  // };
+  const fetchOrders = () => {
+    fetch(ORDER_URL, {
+      method: "GET",
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setOrders(data.data.orders);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+      });
+  };
 
-  // const fetchAgentOrders = () => {
-  //   fetch(AGENT_ORDER_URL, {
-  //     method: "GET",
-  //   })
-  //     .then((resp) => resp.json())
-  //     .then((data) => {
-  //       setAgentOrders(data.data.orders);
-  //       setLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       setError(error);
-  //     });
-  // };
+  const fetchAgentOrders = () => {
+    fetch(AGENT_ORDER_URL, {
+      method: "GET",
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setAgentOrders(data.data.orders);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+      });
+  };
 
   // const fetchTasks = () => {
   //   fetch(CAMUNDA_TASK, {
@@ -80,13 +89,19 @@ const App = () => {
 
   useEffect(() => {
     fetchProducts();
-    // fetchOrders()
-    // fetchAgentOrders()
+    fetchOrders();
+    fetchAgentOrders();
     // fetchTasks()
   }, []);
 
-  const handleAddToCart = (product, quantity) => {
+  const handleAddToCart = (product, qty) => {
     setCart((prev) => [...prev, product]);
+  };
+
+  const handleQtyChange = (product, qty) => {
+    setQty((prevState) => ({ ...prevState, [product.quantity]: qty }));
+    console.log(product);
+    console.log(qty);
   };
 
   const removeFromCart = (productId) => {
@@ -105,10 +120,9 @@ const App = () => {
     return (
       <Router>
         <div>
-          {/* <PrimarySearchAppBar/> */}
           <NavBar cartItems={cart} />
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<Dashboard agentOrders={agentOrders} />} />
             <Route
               path="/products"
               element={
@@ -126,7 +140,14 @@ const App = () => {
                   cartItems={cart}
                   removeFromCart={removeFromCart}
                   handleEmptyCart={emptyCart}
+                  handleQtyChange={handleQtyChange}
                 />
+              }
+            />
+            <Route
+              path="/orders"
+              element={
+                <OrderContainer orders={orders} agentOrders={agentOrders} />
               }
             />
 

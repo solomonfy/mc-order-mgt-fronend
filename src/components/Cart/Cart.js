@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Container,
@@ -10,59 +10,97 @@ import {
   TableRow,
   Paper,
   Typography,
-  TextField,
 } from "@material-ui/core";
 import DeleteForeverSharpIcon from "@material-ui/icons/DeleteForeverSharp";
 
 import { Link } from "react-router-dom";
 import useStyles from "./cart-styles";
 
-export default function Cart({ cartItems, removeFromCart, handleEmptyCart }) {
-  const classes = useStyles();
+export default function Cart({
+  cartItems,
+  removeFromCart,
+  handleEmptyCart,
+  handleQtyChange,
+}) {
+  const [itemQty, setItemQty] = useState(100);
 
+  const classes = useStyles();
   const isEmpty = cartItems.length === 0;
   let subtotal = 0;
   let rows = [];
+  const TAX_RATE = 0.1;
 
-  function createData(
+  function handleQtyChange(e, product) {
+    console.log(product);
+    setItemQty(e.target.value);
+  }
+
+  const setQuantity = (product) => {
+    product.quantity += product.quantity;
+    console.log(product.quantity);
+  };
+
+  function currencyFormat(num) {
+    return "$" + `${num.toFixed(2)}`;
+  }
+
+  function priceRow(qty, unitPrice) {
+    return qty * unitPrice;
+  }
+
+  function createRows(
     id,
     brandName,
     genericName,
+    formulation,
     strength,
     packSize,
     unitPrice,
-    formulation
+    qty = 100
   ) {
+    const price = priceRow(qty, unitPrice);
     return {
       id,
       brandName,
       genericName,
+      formulation,
       strength,
       packSize,
       unitPrice,
-      formulation,
+      qty,
+      price,
     };
   }
 
   for (const item of cartItems) {
-    let row = createData(
+    let row = createRows(
       item.id,
       item.brandName,
       item.genericName,
+      item.formulation,
       item.strength,
       item.packSize,
       item.unitPrice,
-      item.formulation
+      item.qty,
+      item.price
     );
     rows.push(row);
   }
 
-  if (!isEmpty) {
-    for (let i = 0; i < cartItems.length; i++) {
-      const item = cartItems[i];
-      subtotal += item.unitPrice * 100;
-    }
+  function calcSubTotal(items) {
+    return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
   }
+
+  const invoiceSubtotal = calcSubTotal(rows);
+  const invoiceTaxes = TAX_RATE * invoiceSubtotal;
+  const invoiceTotal = invoiceTaxes + invoiceSubtotal;
+
+  // if (!isEmpty) {
+  //   for (let i = 0; i < cartItems.length; i++) {
+  //     const item = cartItems[i];
+  //     calcSubTotal += item.unitPrice * 100;
+  //   }
+  // }
 
   const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -72,11 +110,18 @@ export default function Cart({ cartItems, removeFromCart, handleEmptyCart }) {
     return (
       <>
         <Typography variant="subtitle1" gutterBottom>
-          No product available in the cart, {}
-          <Link to="/products" className={classes.link}>
-            add products now
-          </Link>
+          No product available in the cart {}
         </Typography>
+        <Button
+          color="primary"
+          size="small"
+          type="button"
+          variant="contained"
+          to="/products"
+          component={Link}
+        >
+          add products now
+        </Button>
       </>
     );
   };
@@ -84,17 +129,18 @@ export default function Cart({ cartItems, removeFromCart, handleEmptyCart }) {
   const FilledCart = () => {
     return (
       <>
-        <Typography
-          variant="subtitle1"
+        <Button
+          color="primary"
+          size="small"
+          type="button"
+          variant="outlined"
           to="/products"
           component={Link}
-          // gutterBottom
-          // mt={8}
-          mb={12}
+          mb={6}
         >
           Add more Products
-        </Typography>
-        <TableContainer component={Paper} gutterBottom>
+        </Button>
+        <TableContainer component={Paper} gutterBottom mt={6}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -120,17 +166,23 @@ export default function Cart({ cartItems, removeFromCart, handleEmptyCart }) {
                   <TableCell align="right">{row.genericName}</TableCell>
                   <TableCell align="right">{row.strength}</TableCell>
                   <TableCell align="right">{row.packSize}</TableCell>
-                  <TableCell align="right">${row.unitPrice}</TableCell>
                   <TableCell align="right">
-                    <TextField
-                      id="outlined-number"
+                    {currencyFormat(row.unitPrice)}
+                  </TableCell>
+                  <TableCell align="right">
+                    <input
                       type="number"
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
+                      e
+                      // value={itemQty}
+                      min={100}
+                      max={10000}
+                      // onChange ={(e, row) =>handleQtyChange(e,row)}
+                      onChange={() => setQuantity(row)}
                     />
                   </TableCell>
-                  <TableCell align="right">${row.unitPrice * 100}</TableCell>
+                  <TableCell align="right">
+                    {currencyFormat(row.price)}
+                  </TableCell>
                   <TableCell align="right">
                     <DeleteForeverSharpIcon
                       className={classes.emptyButton}
@@ -148,7 +200,7 @@ export default function Cart({ cartItems, removeFromCart, handleEmptyCart }) {
         </TableContainer>
         <div className={classes.cardDetails}>
           <Typography variant="h6" gutterBottom mt={10} mb={10}>
-            Subtotal: ${subtotal}
+            Subtotal: {currencyFormat(invoiceTotal)}
           </Typography>
         </div>
         <div className={classes.cardButtons}>
