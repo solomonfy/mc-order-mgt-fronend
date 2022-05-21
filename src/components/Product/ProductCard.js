@@ -22,9 +22,8 @@ function ProductCard({ product, onAddToCart, cartItems }) {
   const isProductInCart = (productId) => {
     if (cartItems.length < 1) return;
     for (let i = 0; i < cartItems.length; i++) {
-      let inCart = false;
       if (cartItems[i].id === productId) {
-        return (inCart = true);
+        return true;
       }
     }
   };

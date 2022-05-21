@@ -20,17 +20,17 @@ const App = () => {
   const PRODUCT_URL = `${BASE_URL}/products/list/`;
   const ORDER_URL = `${BASE_URL}/orders/list`;
   const AGENT_ORDER_URL = `${ORDER_URL}/agent/${agentId}`;
-  const CAMUNDA_URL = "http://localhost:2525/engine-rest";
-  const CAMUNDA_TASK = `${CAMUNDA_URL}/task/`;
+  // const CAMUNDA_URL = "http://localhost:2525/engine-rest";
+  // const CAMUNDA_TASK = `${CAMUNDA_URL}/task/`;
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState({});
   const [orders, setOrders] = useState([]);
   const [agentOrders, setAgentOrders] = useState([]);
-  // const [tasks, setTasks] = useState([]);
   const [cart, setCart] = useState([]);
   const [itemQty, setQty] = useState({});
+  // const [tasks, setTasks] = useState([]);
 
   const fetchProducts = () => {
     fetch(PRODUCT_URL)
