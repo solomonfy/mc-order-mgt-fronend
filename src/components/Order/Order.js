@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import useStyles from "./order-styles";
 
+import ORDER_STATUS from '../../constants/OrderStatus'
 import "./Order.css";
 
 export default function Order({ agentOrders }) {
