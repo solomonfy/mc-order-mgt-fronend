@@ -12,7 +12,7 @@ import {
 
 import PropTypes from "prop-types";
 import { ShoppingCart, AccountCircle } from "@material-ui/icons";
-import logo from "../../assets/AmbaLogo.webp";
+import mcLogo from "../../assets/mc_logo.png";
 import useStyles from "./navbar-styles";
 
 import { Link, useLocation } from "react-router-dom";
@@ -65,12 +65,30 @@ const NavBar = ({ cartItems }) => {
 
   const NavBarTabs = (
     <>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <Box
+        sx={{ borderBottom: 1, borderColor: "divider" }}
+        className={classes.navbar}
+      >
         <Tabs
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
         >
+          <Typography
+            variant="h6"
+            className={classes.title}
+            color="inherit"
+            component={Link}
+            to="/"
+          >
+            <img
+              src={mcLogo}
+              alt="logo"
+              height="25px"
+              className={classes.image}
+            />
+            Medochemie
+          </Typography>
           <Tab label="Home" {...a11yProps(0)} component={Link} to="/" />
           <Tab label="Orders" {...a11yProps(1)} component={Link} to="/orders" />
           <Tab
@@ -94,21 +112,6 @@ const NavBar = ({ cartItems }) => {
     <>
       <AppBar position="fixed" className={classes.appBar} color="primary">
         <Toolbar>
-          <Typography
-            variant="h6"
-            className={classes.title}
-            color="inherit"
-            component={Link}
-            to="/"
-          >
-            <img
-              src={logo}
-              alt="logo"
-              height="25px"
-              className={classes.image}
-            />
-            Agent name goes here
-          </Typography>
           {NavBarTabs}
 
           <div className={classes.grow} />

@@ -9,9 +9,10 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import useStyles from "./order-styles";
 
-import ORDER_STATUS from '../../constants/OrderStatus'
+import ORDER_STATUS from "../../constants/OrderStatus";
 import "./Order.css";
 
 export default function Order({ agentOrders }) {
@@ -70,7 +71,7 @@ export default function Order({ agentOrders }) {
                 key={row.orderNumber}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
+                <TableCell component="th" scope="row" component={Link} to="/">
                   {row.orderNumber && row.orderNumber}
                 </TableCell>
                 <TableCell align="right">

@@ -13,6 +13,7 @@ import {
 } from "./components/";
 import "./App.css";
 
+
 const App = () => {
   const agentId = "61a905c174dce215a9daf103";
 
@@ -121,6 +122,7 @@ const App = () => {
       <Router>
         <div>
           <NavBar cartItems={cart} />
+          {/* <NavBar2 cartItems={cart} /> */}
           <Routes>
             <Route path="/" element={<Dashboard agentOrders={agentOrders} />} />
             <Route
