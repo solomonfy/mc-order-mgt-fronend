@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import useStyles from "./order-styles";
+import { withStyles } from "@material-ui/core/styles";
 
 import ORDER_STATUS from "../../constants/OrderStatus";
 import "./Order.css";
@@ -34,12 +35,13 @@ export default function Order({ agentOrders }) {
 
   let rows = [];
 
-  function createData(orderNumber, shipment, status, amount) {
-    return { orderNumber, shipment, status, amount };
+  function createData(id, orderNumber, shipment, status, amount) {
+    return { id, orderNumber, shipment, status, amount };
   }
 
   for (const order of agentOrders) {
     let row = createData(
+      order.id,
       order.orderNumber,
       order.shipment,
       order.status,
@@ -55,14 +57,22 @@ export default function Order({ agentOrders }) {
           List of Orders
         </Typography>
       )}
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} className={classes.main}>
         <Table sx={{ minWidth: 650 }} size="large" aria-label="a dense table">
           <TableHead className={classes.tableHeader}>
             <TableRow>
-              <TableCell>Order Number</TableCell>
-              <TableCell align="right">Shipment</TableCell>
-              <TableCell align="right">Status</TableCell>
-              <TableCell align="right">Invoice Amount</TableCell>
+              <TableCell className={classes.tableHeaderRows}>
+                Order Number
+              </TableCell>
+              <TableCell align="right" className={classes.tableHeaderRows}>
+                Shipment
+              </TableCell>
+              <TableCell align="right" className={classes.tableHeaderRows}>
+                Status
+              </TableCell>
+              <TableCell align="right" className={classes.tableHeaderRows}>
+                Invoice Amount
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -71,8 +81,10 @@ export default function Order({ agentOrders }) {
                 key={row.orderNumber}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell component="th" scope="row" component={Link} to="/">
-                  {row.orderNumber && row.orderNumber}
+                <TableCell scope="row">
+                  <Link to={`/order-detail/${row.id}`}>
+                    {row.orderNumber && row.orderNumber}
+                  </Link>
                 </TableCell>
                 <TableCell align="right">
                   {row.shipment && row.shipment}

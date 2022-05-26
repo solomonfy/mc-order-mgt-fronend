@@ -10,9 +10,9 @@ import {
   ProductDetail,
   Loader,
   Checkout,
+  OrderDetail
 } from "./components/";
 import "./App.css";
-
 
 const App = () => {
   const agentId = "61a905c174dce215a9daf103";
@@ -154,7 +154,8 @@ const App = () => {
             />
 
             <Route path="/checkout" element={<Checkout />} />
-            <Route path="/product-detail" element={<ProductDetail />} />
+            <Route path="/product-detail/:id" element={<ProductDetail products={products}/>} />
+            <Route path="/order-detail/:id" element={<OrderDetail agentOrders={agentOrders}/>} />
           </Routes>
         </div>
       </Router>

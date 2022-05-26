@@ -19,6 +19,7 @@ function Products({ products, onAddToCart, cartItems }) {
           <>
             <Grid key={product.id} item xs={12} sm={6} md={4} lg={3}>
               <ProductCard
+                key={product.id}
                 product={product}
                 onAddToCart={onAddToCart}
                 cartItems={cartItems}

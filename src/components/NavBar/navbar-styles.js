@@ -22,6 +22,9 @@ export default makeStyles((theme) => ({
   },
   image: {
     marginRight: "10px",
+    borderRadius: "50px",
+    backgroundColor: "white",
+    size: "3rem"
   },
 
   navbar: {
