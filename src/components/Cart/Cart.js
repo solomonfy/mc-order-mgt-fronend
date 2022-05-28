@@ -15,6 +15,7 @@ import DeleteForeverSharpIcon from "@material-ui/icons/DeleteForeverSharp";
 
 import { Link } from "react-router-dom";
 import useStyles from "./cart-styles";
+import formatter from "../../util/formatter"
 
 export default function Cart({
   cartItems,
@@ -26,7 +27,6 @@ export default function Cart({
 
   const classes = useStyles();
   const isEmpty = cartItems.length === 0;
-  let subtotal = 0;
   let rows = [];
   const TAX_RATE = 0.1;
 
@@ -40,9 +40,6 @@ export default function Cart({
     console.log(product.quantity);
   };
 
-  function currencyFormat(num) {
-    return "$" + `${num.toFixed(2)}`;
-  }
 
   function priceRow(qty, unitPrice) {
     return qty * unitPrice;
@@ -95,12 +92,7 @@ export default function Cart({
   const invoiceTaxes = TAX_RATE * invoiceSubtotal;
   const invoiceTotal = invoiceTaxes + invoiceSubtotal;
 
-  // if (!isEmpty) {
-  //   for (let i = 0; i < cartItems.length; i++) {
-  //     const item = cartItems[i];
-  //     calcSubTotal += item.unitPrice * 100;
-  //   }
-  // }
+
 
   const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -167,7 +159,7 @@ export default function Cart({
                   <TableCell align="right">{row.strength}</TableCell>
                   <TableCell align="right">{row.packSize}</TableCell>
                   <TableCell align="right">
-                    {currencyFormat(row.unitPrice)}
+                    {formatter.format(row.unitPrice)}
                   </TableCell>
                   <TableCell align="right">
                     <input
@@ -181,7 +173,7 @@ export default function Cart({
                     />
                   </TableCell>
                   <TableCell align="right">
-                    {currencyFormat(row.price)}
+                    {formatter.format(row.price)}
                   </TableCell>
                   <TableCell align="right">
                     <DeleteForeverSharpIcon
@@ -200,7 +192,7 @@ export default function Cart({
         </TableContainer>
         <div className={classes.cardDetails}>
           <Typography variant="h6" gutterBottom mt={10} mb={10}>
-            Subtotal: {currencyFormat(invoiceTotal)}
+            Subtotal: {formatter.format(invoiceTotal)}
           </Typography>
         </div>
         <div className={classes.cardButtons}>
@@ -243,7 +235,6 @@ export default function Cart({
   return (
     <Container>
       <div className={classes.toolbar} />
-      {/* <div className={classes.header}></div> */}
       <Typography
         className={(classes.title, classes.header)}
         variant="h4"

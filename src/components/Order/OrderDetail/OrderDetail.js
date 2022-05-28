@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import formatter from "../../../util/formatter"
 
 const OrderDetail = ({ agentOrders, products }) => {
   const { id } = useParams();
@@ -21,7 +22,7 @@ const OrderDetail = ({ agentOrders, products }) => {
   return (
     <div>
       <h1>Order Number - {thisOrder.orderNumber}</h1>
-      <h2>Amount - ${thisOrder.amount}</h2>
+      <h2>Amount - {formatter.format(thisOrder.amount)}</h2>
       <h2>Shipment - {thisOrder.shipment}</h2>
       <h2>Order status - {thisOrder.status}</h2>
       <h2>Created By - {thisOrder.createdBy}</h2>

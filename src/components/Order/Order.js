@@ -11,19 +11,13 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import useStyles from "./order-styles";
-import { withStyles } from "@material-ui/core/styles";
+import formatter from "../../util/formatter"
 
 import ORDER_STATUS from "../../constants/OrderStatus";
 import "./Order.css";
 
 export default function Order({ agentOrders }) {
   const classes = useStyles();
-
-  var formatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-  });
 
   const status = {
     draft: "Draft",
