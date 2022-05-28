@@ -15,7 +15,8 @@ import DeleteForeverSharpIcon from "@material-ui/icons/DeleteForeverSharp";
 
 import { Link } from "react-router-dom";
 import useStyles from "./cart-styles";
-import formatter from "../../util/formatter"
+import formatter from "../../util/formatter";
+import capitalizeFirstLetter from "../../util/capitalizeFirstLetter";
 
 export default function Cart({
   cartItems,
@@ -39,7 +40,6 @@ export default function Cart({
     product.quantity += product.quantity;
     console.log(product.quantity);
   };
-
 
   function priceRow(qty, unitPrice) {
     return qty * unitPrice;
@@ -91,12 +91,6 @@ export default function Cart({
   const invoiceSubtotal = calcSubTotal(rows);
   const invoiceTaxes = TAX_RATE * invoiceSubtotal;
   const invoiceTotal = invoiceTaxes + invoiceSubtotal;
-
-
-
-  const capitalizeFirstLetter = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  };
 
   const EmptyCart = () => {
     return (
@@ -155,7 +149,7 @@ export default function Cart({
                   <TableCell component="th" scope="row">
                     {row.brandName} {capitalizeFirstLetter(row.formulation)}
                   </TableCell>
-                  <TableCell align="right">{row.genericName}</TableCell>
+                  <TableCell align="right">{capitalizeFirstLetter(row.genericName)}</TableCell>
                   <TableCell align="right">{row.strength}</TableCell>
                   <TableCell align="right">{row.packSize}</TableCell>
                   <TableCell align="right">
