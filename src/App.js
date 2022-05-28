@@ -155,7 +155,7 @@ const App = () => {
 
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/product-detail/:id" element={<ProductDetail products={products}/>} />
-            <Route path="/order-detail/:id" element={<OrderDetail agentOrders={agentOrders}/>} />
+            <Route path="/order-detail/:id" element={<OrderDetail agentOrders={agentOrders} products={products}/>} />
           </Routes>
         </div>
       </Router>

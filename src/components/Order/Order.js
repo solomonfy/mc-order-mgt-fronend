@@ -33,28 +33,11 @@ export default function Order({ agentOrders }) {
     rejected: "Rejected",
   };
 
-  let rows = [];
-
-  function createData(id, orderNumber, shipment, status, amount) {
-    return { id, orderNumber, shipment, status, amount };
-  }
-
-  for (const order of agentOrders) {
-    let row = createData(
-      order.id,
-      order.orderNumber,
-      order.shipment,
-      order.status,
-      order.amount
-    );
-    rows.push(row);
-  }
-
   return (
     <div className={classes.header}>
-      {rows.length > 0 && (
+      {agentOrders.length > 0 && (
         <Typography variant="h4" gutterBottom>
-          List of Orders
+          List of Orders ({agentOrders.length})
         </Typography>
       )}
       <TableContainer component={Paper} className={classes.main}>
@@ -76,24 +59,24 @@ export default function Order({ agentOrders }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {agentOrders.map((order) => (
               <TableRow
-                key={row.orderNumber}
+                key={order.orderNumber}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell scope="row">
-                  <Link to={`/order-detail/${row.id}`}>
-                    {row.orderNumber && row.orderNumber}
+                  <Link to={`/order-detail/${order.id}`}>
+                    {order.orderNumber && order.orderNumber}
                   </Link>
                 </TableCell>
                 <TableCell align="right">
-                  {row.shipment && row.shipment}
+                  {order.shipment && order.shipment}
                 </TableCell>
                 <TableCell align="right">
-                  {status[row.status.toLowerCase()]}
+                  {status[order.status.toLowerCase()]}
                 </TableCell>
                 <TableCell align="right">
-                  {formatter.format(row.amount)}
+                  {formatter.format(order.amount)}
                 </TableCell>
               </TableRow>
             ))}
