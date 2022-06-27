@@ -10,9 +10,11 @@ import {
   ProductDetail,
   Loader,
   Checkout,
-  OrderDetail
+  OrderDetail,
 } from "./components/";
 import "./App.css";
+
+import { CartProvider } from "./CartContext";
 
 const App = () => {
   const agentId = "61a905c174dce215a9daf103";
@@ -119,46 +121,45 @@ const App = () => {
 
   if (!loading) {
     return (
-      <Router>
-        <div>
-          <NavBar cartItems={cart} />
-          {/* <NavBar2 cartItems={cart} /> */}
-          <Routes>
-            <Route path="/" element={<Dashboard agentOrders={agentOrders} />} />
-            <Route
-              path="/products"
-              element={
-                <Products
-                  products={products}
-                  onAddToCart={handleAddToCart}
-                  cartItems={cart}
-                />
-              }
-            />
-            <Route
-              path="/cart"
-              element={
-                <Cart
-                  cartItems={cart}
-                  removeFromCart={removeFromCart}
-                  handleEmptyCart={emptyCart}
-                  handleQtyChange={handleQtyChange}
-                />
-              }
-            />
-            <Route
-              path="/orders"
-              element={
-                <OrderContainer orders={orders} agentOrders={agentOrders} />
-              }
-            />
+      <CartProvider>
+        <Router>
+          <div>
+            <NavBar />
+            <Routes>
+              <Route
+                path="/"
+                element={<Dashboard agentOrders={agentOrders} />}
+              />
+              <Route
+                path="/products"
+                element={<Products products={products} />}
+              />
+              <Route
+                path="/cart"
+                element={<Cart handleQtyChange={handleQtyChange} />}
+              />
+              <Route
+                path="/orders"
+                element={
+                  <OrderContainer orders={orders} agentOrders={agentOrders} />
+                }
+              />
 
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/product-detail/:id" element={<ProductDetail products={products}/>} />
-            <Route path="/order-detail/:id" element={<OrderDetail agentOrders={agentOrders} products={products}/>} />
-          </Routes>
-        </div>
-      </Router>
+              <Route path="/checkout" element={<Checkout />} />
+              <Route
+                path="/product-detail/:id"
+                element={<ProductDetail products={products} />}
+              />
+              <Route
+                path="/order-detail/:id"
+                element={
+                  <OrderDetail agentOrders={agentOrders} products={products} />
+                }
+              />
+            </Routes>
+          </div>
+        </Router>
+      </CartProvider>
     );
   }
 };

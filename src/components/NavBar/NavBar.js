@@ -17,12 +17,14 @@ import useStyles from "./navbar-styles";
 
 import { Link, useLocation } from "react-router-dom";
 
-const NavBar = ({ cartItems }) => {
+import { useContext } from "react";
+import CartContext from "../../CartContext";
+
+const NavBar = () => {
+  const { cartProducts } = useContext(CartContext);
+
   const classes = useStyles();
   const location = useLocation(); //Once we're on cart page, should not see that cart icon.
-
-  let cartItemsCount = 0;
-  if (cartItems.length > 0) cartItemsCount = cartItems.length;
 
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -136,7 +138,7 @@ const NavBar = ({ cartItems }) => {
                 component={Link}
                 to="/cart"
               >
-                <Badge badgeContent={cartItemsCount} color="secondary">
+                <Badge badgeContent={cartProducts.length} color="secondary">
                   <ShoppingCart />
                 </Badge>
               </IconButton>

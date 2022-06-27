@@ -18,28 +18,17 @@ import useStyles from "./cart-styles";
 import formatter from "../../util/formatter";
 import capitalizeFirstLetter from "../../util/capitalizeFirstLetter";
 
-export default function Cart({
-  cartItems,
-  removeFromCart,
-  handleEmptyCart,
-  handleQtyChange,
-}) {
-  const [itemQty, setItemQty] = useState(100);
+import { useContext } from "react";
+import CartContext from "../../CartContext";
 
+export default function Cart({}) {
+
+  const { cartProducts, qty, removeFromCart, emptyCart, changeProductQty } = useContext(CartContext);
+  
   const classes = useStyles();
-  const isEmpty = cartItems.length === 0;
+  const isEmpty = cartProducts.length === 0;
   let rows = [];
   const TAX_RATE = 0.1;
-
-  function handleQtyChange(e, product) {
-    console.log(product);
-    setItemQty(e.target.value);
-  }
-
-  const setQuantity = (product) => {
-    product.quantity += product.quantity;
-    console.log(product.quantity);
-  };
 
   function priceRow(qty, unitPrice) {
     return qty * unitPrice;
@@ -53,7 +42,7 @@ export default function Cart({
     strength,
     packSize,
     unitPrice,
-    qty = 100
+    qty
   ) {
     const price = priceRow(qty, unitPrice);
     return {
@@ -69,7 +58,7 @@ export default function Cart({
     };
   }
 
-  for (const item of cartItems) {
+  for (const item of cartProducts) {
     let row = createRows(
       item.id,
       item.brandName,
@@ -149,7 +138,9 @@ export default function Cart({
                   <TableCell component="th" scope="row">
                     {row.brandName} {capitalizeFirstLetter(row.formulation)}
                   </TableCell>
-                  <TableCell align="right">{capitalizeFirstLetter(row.genericName)}</TableCell>
+                  <TableCell align="right">
+                    {capitalizeFirstLetter(row.genericName)}
+                  </TableCell>
                   <TableCell align="right">{row.strength}</TableCell>
                   <TableCell align="right">{row.packSize}</TableCell>
                   <TableCell align="right">
@@ -159,11 +150,10 @@ export default function Cart({
                     <input
                       type="number"
                       e
-                      // value={itemQty}
+                      value={row.qty}
+                      onChange={changeProductQty}
                       min={100}
                       max={10000}
-                      // onChange ={(e, row) =>handleQtyChange(e,row)}
-                      onChange={() => setQuantity(row)}
                     />
                   </TableCell>
                   <TableCell align="right">
@@ -196,7 +186,7 @@ export default function Cart({
             type="button"
             variant="contained"
             color="secondary"
-            onClick={handleEmptyCart}
+            onClick={emptyCart}
           >
             Empty Cart
           </Button>

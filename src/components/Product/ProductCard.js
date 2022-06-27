@@ -11,7 +11,12 @@ import { AddShoppingCart } from "@material-ui/icons";
 import "./ProductCard.css";
 import { Link } from "react-router-dom";
 
-function ProductCard({ product, onAddToCart, cartItems }) {
+import CartContext from "../../CartContext";
+import { useContext } from "react";
+
+function ProductCard({ product }) {
+  const { cartProducts, addToCart } = useContext(CartContext);
+
   var randomImage = null;
 
   if (product.imageUrls) {
@@ -19,10 +24,12 @@ function ProductCard({ product, onAddToCart, cartItems }) {
       product.imageUrls[Math.floor(Math.random() * product.imageUrls.length)];
   }
 
-  const isProductInCart = (productId) => {
-    if (cartItems.length < 1) return;
-    for (let i = 0; i < cartItems.length; i++) {
-      if (cartItems[i].id === productId) {
+  const isProductInCart = (id) => {
+    if (cartProducts.length < 1) return;
+    // const exist= cartProducts.find(x => x.id === id)
+
+    for (let i = 0; i < cartProducts.length; i++) {
+      if (cartProducts[i].id === id) {
         return true;
       }
     }
@@ -59,7 +66,7 @@ function ProductCard({ product, onAddToCart, cartItems }) {
         <CardActions disableSpacing className="card-actions">
           <IconButton
             arial-label="Add to Cart"
-            onClick={() => onAddToCart(product, 100)}
+            onClick={() => addToCart(product)}
             disabled={isProductInCart(product.id)}
             color="primary"
           >
