@@ -7,7 +7,7 @@ export function CartProvider({ children }) {
   const [qty, setProductQty] = useState();
 
   const addToCart = (product) => {
-    setCartProducts((prevState) => [...prevState, {...product, qty: 100}]);
+    setCartProducts((prevState) => [...prevState, { ...product, qty: 100 }]);
   };
 
   const removeFromCart = (id) => {
@@ -19,15 +19,19 @@ export function CartProvider({ children }) {
   };
 
   const changeProductQty = (event) => {
-    setProductQty(event.target.value)
-    console.log(qty)
-  }
-
-
+    setProductQty(event.target.value);
+    console.log(event.target.value);
+  };
 
   return (
     <CartContext.Provider
-      value={{ cartProducts, qty, changeProductQty, addToCart, removeFromCart, emptyCart }}
+      value={{
+        cartProducts,
+        changeProductQty,
+        addToCart,
+        removeFromCart,
+        emptyCart,
+      }}
     >
       {children}
     </CartContext.Provider>

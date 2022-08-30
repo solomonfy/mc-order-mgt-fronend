@@ -2,7 +2,6 @@ import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 
 import ProductCard from "../../components/Product/ProductCard";
-import ProductDetail from "../../components/Product/ProductDetail";
 
 import useStyles from "./products-styles";
 

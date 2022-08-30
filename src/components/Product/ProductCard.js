@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 
 import CartContext from "../../CartContext";
 import { useContext } from "react";
+import formatter from "../../util/formatter";
 
 function ProductCard({ product }) {
   const { cartProducts, addToCart } = useContext(CartContext);
@@ -46,6 +47,7 @@ function ProductCard({ product }) {
           <CardMedia
             className="card-media"
             image={randomImage}
+            src={randomImage}
             title={product.brandName}
           />
         </Link>
@@ -55,7 +57,7 @@ function ProductCard({ product }) {
               {product.brandName.toUpperCase()} {}
               <Typography variant="overline">{product.strength}</Typography>
             </Typography>
-            <Typography variant="subtitle1">${product.unitPrice}</Typography>
+            <Typography variant="subtitle1">{formatter.format(product.unitPrice)}</Typography>
           </div>
           <Typography variant="body2" color="textSecondary">
             {" "}

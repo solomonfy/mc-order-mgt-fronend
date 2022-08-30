@@ -107,13 +107,7 @@ const App = () => {
     console.log(qty);
   };
 
-  const removeFromCart = (productId) => {
-    setCart(cart.filter((item) => item.id !== productId));
-  };
-
-  const emptyCart = () => {
-    setCart(cart.slice(cart.length));
-  };
+ 
 
   if (loading) {
     return <Loader />;

@@ -22,9 +22,9 @@ import { useContext } from "react";
 import CartContext from "../../CartContext";
 
 export default function Cart({}) {
+  const { cartProducts, removeFromCart, emptyCart, changeProductQty } =
+    useContext(CartContext);
 
-  const { cartProducts, qty, removeFromCart, emptyCart, changeProductQty } = useContext(CartContext);
-  
   const classes = useStyles();
   const isEmpty = cartProducts.length === 0;
   let rows = [];
@@ -115,10 +115,14 @@ export default function Cart({}) {
         >
           Add more Products
         </Button>
-        <TableContainer component={Paper} gutterBottom mt={6}>
+        <br />
+        <br />
+        <TableContainer component={Paper} mt={6}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
-              <TableRow>
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 2 } }}
+              >
                 <TableCell align="center">Brand Name</TableCell>
                 <TableCell align="center">Generic Name</TableCell>
                 <TableCell align="center">Strength&nbsp;</TableCell>
@@ -147,14 +151,36 @@ export default function Cart({}) {
                     {formatter.format(row.unitPrice)}
                   </TableCell>
                   <TableCell align="right">
-                    <input
+                    {/* <input
                       type="number"
                       e
                       value={row.qty}
                       onChange={changeProductQty}
                       min={100}
                       max={10000}
-                    />
+                    /> */}
+
+                    <div className={classes.cardButtons}>
+                      {/* <Button
+                        size="small"
+                        type="button"
+                        variant="contained"
+                        color="secondary"
+                      >
+                        -
+                      </Button> */}
+
+                      <Typography>{row.qty}</Typography>
+
+                      {/* <Button
+                        size="small"
+                        type="button"
+                        variant="contained"
+                        color="primary"
+                      >
+                        +
+                      </Button> */}
+                    </div>
                   </TableCell>
                   <TableCell align="right">
                     {formatter.format(row.price)}
@@ -175,8 +201,19 @@ export default function Cart({}) {
           </Table>
         </TableContainer>
         <div className={classes.cardDetails}>
+          <Typography variant="h6" mt={10} mb={10}>
+            Sub-total: {formatter.format(invoiceSubtotal)}
+          </Typography>
+        </div>
+        <div>
+          <Typography variant="h6" mt={10} mb={10}>
+            Tax ({TAX_RATE * 100}%): {formatter.format(invoiceTaxes)}
+          </Typography>
+        </div>
+        <hr />
+        <div>
           <Typography variant="h6" gutterBottom mt={10} mb={10}>
-            Subtotal: {formatter.format(invoiceTotal)}
+            Total: {formatter.format(invoiceTotal)}
           </Typography>
         </div>
         <div className={classes.cardButtons}>
@@ -191,6 +228,7 @@ export default function Cart({}) {
             Empty Cart
           </Button>
           <Button
+            className={classes.emptyButton}
             size="small"
             type="button"
             variant="contained"
@@ -211,6 +249,8 @@ export default function Cart({}) {
           >
             Submit Order
           </Button>
+          <br />
+          <br />
         </div>
       </>
     );
