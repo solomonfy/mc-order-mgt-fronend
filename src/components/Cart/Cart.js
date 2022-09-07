@@ -21,14 +21,14 @@ import capitalizeFirstLetter from "../../util/capitalizeFirstLetter";
 import { useContext } from "react";
 import CartContext from "../../CartContext";
 
-export default function Cart({}) {
+export default function Cart({addOrder}) {
   const { cartProducts, removeFromCart, emptyCart, changeProductQty } =
     useContext(CartContext);
 
   const classes = useStyles();
   const isEmpty = cartProducts.length === 0;
+  const TAX_RATE = 0;
   let rows = [];
-  const TAX_RATE = 0.1;
 
   function priceRow(qty, unitPrice) {
     return qty * unitPrice;
@@ -85,7 +85,7 @@ export default function Cart({}) {
     return (
       <>
         <Typography variant="subtitle1" gutterBottom>
-          No product available in the cart {}
+          No product has been added in the cart {}
         </Typography>
         <Button
           color="primary"
@@ -246,6 +246,7 @@ export default function Cart({}) {
             color="primary"
             to="/checkout"
             component={Link}
+            onClick={addOrder}
           >
             Submit Order
           </Button>

@@ -11,9 +11,9 @@ import {
 import "./Dashboard.css";
 import OrderSummary from "../../components/Order/OrderSummary/OrderSummary";
 
-const Dashboard = ({ allOrders, agentOrders }) => {
+const Dashboard = ({ allOrders, agentOrders, agentInfo }) => {
   // let timeOfDay;
-  let loggedInUser = "Alen";
+  let loggedInUser = agentInfo.agentName;
   const date = new Date();
   const hours = date.getHours();
 

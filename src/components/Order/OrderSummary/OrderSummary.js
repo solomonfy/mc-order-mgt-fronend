@@ -21,6 +21,8 @@ const OrderSummary = ({ agentOrders }) => {
     rejected: "Rejected",
   };
 
+  console.log(agentOrders)
+
   let ourOrderCount;
 
   let statusCount = {

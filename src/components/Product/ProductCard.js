@@ -45,7 +45,7 @@ function ProductCard({ product }) {
       <Card className="card-root">
         <Link to={`/product-detail/${product.id}`}>
           <CardMedia
-            className="card-media"
+            className="card-media product-image"
             image={randomImage}
             src={randomImage}
             title={product.brandName}

@@ -17,3 +17,15 @@
   display: flex;
   justify-content: space-between;
 }
+
+/* .product-image {
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 0.1px rgba(0, 0, 0, 0.1) solid;
+} */
