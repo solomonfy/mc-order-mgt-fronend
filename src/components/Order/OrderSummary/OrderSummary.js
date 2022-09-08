@@ -21,7 +21,7 @@ const OrderSummary = ({ agentOrders }) => {
     rejected: "Rejected",
   };
 
-  console.log(agentOrders)
+  // console.log(agentOrders);
 
   let ourOrderCount;
 
@@ -33,12 +33,33 @@ const OrderSummary = ({ agentOrders }) => {
     rejected: 0,
   };
 
-  if (agentOrders) {
+  let statusWithCount = [
+    { draft: 0 },
+    { under_review: 0 },
+    { active: 0 },
+    { completed: 0 },
+    { rejected: 0 },
+  ];
+
+  let newStat = "";
+  let arr;
+
+  if (agentOrders.length > 0) {
     ourOrderCount = agentOrders.length;
     agentOrders.map((order) => {
-      if (status[order.status.toLowerCase()]) {
-        statusCount[order.status.toLowerCase()] += 1;
-      }
+      // for (let i = 0; i < statusWithCount.length; i++) {
+        if (order.status === Object.keys(statusWithCount[0])[0]) {
+          Object.values(statusWithCount[0])[0] += 1;
+        }
+        console.log(Object.values(statusWithCount[0])[0]);
+      // }
+      // for (let stat of statusWithCount) {
+      //   if (Object.keys(stat)[0] === order.status) {
+      //     console.log(Object.keys(stat)[0] === order.status);
+      //     Object.values(stat)[0] += 1;
+      //   }
+      //   console.log(Object.values(stat)[0]);
+      // }
     });
   }
 
@@ -51,22 +72,29 @@ const OrderSummary = ({ agentOrders }) => {
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell>{status["draft"]}</TableCell>
-              <TableCell align="right">{status["under_review"]}</TableCell>
-              <TableCell align="right">{status["active"]}</TableCell>
-              <TableCell align="right">{status["completed"]}</TableCell>
-              <TableCell align="right">{status["rejected"]}</TableCell>
+              {statusWithCount.map((stat) => {
+                arr = Object.keys(stat);
+                newStat =
+                  arr.length > 1
+                    ? `${arr[0].toUpperCase()} ${arr[1].toUpperCase()}`
+                    : arr[0].toUpperCase();
+                return (
+                  <TableCell component="th" scope="row" align="right">
+                    {newStat}
+                  </TableCell>
+                );
+              })}
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCell component="th" scope="row">
-                {statusCount["under_review"]}
-              </TableCell>
-              <TableCell align="right">{statusCount["draft"]}</TableCell>
-              <TableCell align="right">{statusCount["active"]}</TableCell>
-              <TableCell align="right">{statusCount["completed"]}</TableCell>
-              <TableCell align="right">{statusCount["rejected"]}</TableCell>
+              {statusWithCount.map((stat) => {
+                return (
+                  <TableCell component="th" scope="row" align="right">
+                    {Object.values(stat)[0]}
+                  </TableCell>
+                );
+              })}
             </TableRow>
           </TableBody>
         </Table>
