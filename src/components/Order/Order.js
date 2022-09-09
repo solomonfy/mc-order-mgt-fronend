@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import useStyles from "./order-styles";
-import formatter from "../../util/formatter"
+import formatter from "../../util/formatter";
 
 import ORDER_STATUS from "../../constants/OrderStatus";
 import "./Order.css";
@@ -38,16 +38,16 @@ export default function Order({ agentOrders }) {
         <Table sx={{ minWidth: 650 }} size="large" aria-label="a dense table">
           <TableHead className={classes.tableHeader}>
             <TableRow>
-              <TableCell className={classes.tableHeaderRows}>
-                Order Number
-              </TableCell>
-              <TableCell align="right" className={classes.tableHeaderRows}>
-                Shipment
-              </TableCell>
-              <TableCell align="right" className={classes.tableHeaderRows}>
+              <TableCell align="center" className={classes.tableHeaderRows}>
                 Status
               </TableCell>
-              <TableCell align="right" className={classes.tableHeaderRows}>
+              <TableCell align="center" className={classes.tableHeaderRows}>
+                Order Number
+              </TableCell>
+              <TableCell align="center" className={classes.tableHeaderRows}>
+                Shipment
+              </TableCell>
+              <TableCell align="center" className={classes.tableHeaderRows}>
                 Invoice Amount
               </TableCell>
             </TableRow>
@@ -58,18 +58,19 @@ export default function Order({ agentOrders }) {
                 key={order.orderNumber}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell scope="row">
-                  <Link to={`/order-detail/${order.id}`}>
+                <TableCell scope="row" align="center">
+                  {status[order.status.toLowerCase()]}
+                </TableCell>
+                <TableCell scope="row" align="center">
+                  <Link to={`/orders/${order.id}`}>
                     {order.orderNumber && order.orderNumber}
                   </Link>
                 </TableCell>
-                <TableCell align="right">
+                <TableCell scope="row" align="center">
                   {order.shipment && order.shipment}
                 </TableCell>
-                <TableCell align="right">
-                  {status[order.status.toLowerCase()]}
-                </TableCell>
-                <TableCell align="right">
+
+                <TableCell scope="row" align="center">
                   {formatter.format(order.amount)}
                 </TableCell>
               </TableRow>

@@ -1,0 +1,17 @@
+.footer-container {
+  background-color: black;
+  color: white;
+  height: 10rem;
+  align-items: center;
+  justify-content: center;
+  margin-top: -180px;
+  /* negative value of footer height */
+  clear: both;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  left:0;
+}
+
+.footer {
+}

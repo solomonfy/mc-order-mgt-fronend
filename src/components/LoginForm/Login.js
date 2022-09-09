@@ -5,6 +5,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import "./login.css";
 
+
+//run this
+// npm install react-hook-form yup @hookform/resolvers
+//or
+//yarn add react-hook-form yup @hookform/resolvers
 export default function Login() {
   const schema = yup.object().shape({
     username: yup.string().required("Username cannot be empty"),

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Products from "./containers/Products/Products";
 import OrderContainer from "./containers/OrderContainer/OrderContainer";
@@ -12,7 +12,9 @@ import {
   Loader,
   Checkout,
   OrderDetail,
-} from "./components/";
+  Footer,
+  // Login
+} from "./components/exportComponents";
 import "./App.css";
 
 import { CartProvider } from "./CartContext";
@@ -127,57 +129,63 @@ const App = () => {
   };
 
   if (loading) {
-    return <Loader />;
+    return (
+      <>
+        <Loader />
+        <Footer />
+      </>
+    );
   }
 
   if (!loading) {
     return (
       <CartProvider>
         {/* <Login/> */}
-        <Router>
-          <div>
-            <NavBar />
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Dashboard agentOrders={agentOrders} agentInfo={agentInfo} />
-                }
-              />
-              <Route
-                path="/products"
-                element={<Products products={products} />}
-              />
-              <Route
-                path="/cart"
-                element={
-                  <Cart
-                    handleQtyChange={handleQtyChange}
-                    submitOrder={submitOrder}
-                  />
-                }
-              />
-              <Route
-                path="/orders"
-                element={
-                  <OrderContainer orders={orders} agentOrders={agentOrders} />
-                }
-              />
 
-              <Route path="/checkout" element={<Checkout />} />
-              <Route
-                path="/product-detail/:id"
-                element={<ProductDetail products={products} />}
-              />
-              <Route
-                path="/order-detail/:id"
-                element={
-                  <OrderDetail agentOrders={agentOrders} products={products} />
-                }
-              />
-            </Routes>
-          </div>
-        </Router>
+        <div>
+          <NavBar />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Dashboard agentOrders={agentOrders} agentInfo={agentInfo} />
+              }
+            />
+            <Route
+              path="/products"
+              element={<Products products={products} />}
+            />
+            <Route
+              path="/cart"
+              element={
+                <Cart
+                  handleQtyChange={handleQtyChange}
+                  submitOrder={submitOrder}
+                />
+              }
+            />
+            <Route
+              path="/orders"
+              element={
+                <OrderContainer orders={orders} agentOrders={agentOrders} />
+              }
+            />
+            <Route
+              path="/orders/:id"
+              element={
+                <OrderDetail agentOrders={agentOrders} products={products} />
+              }
+            />
+
+            <Route path="/checkout" element={<Checkout />} />
+            <Route
+              path="/product-detail/:id"
+              element={<ProductDetail products={products} />}
+            />
+          </Routes>
+        </div>
+
+        <Footer />
       </CartProvider>
     );
   }

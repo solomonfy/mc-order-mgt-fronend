@@ -9,8 +9,10 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Typography,
+  Button,
+  // Typography,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const OrderDetail = ({ agentOrders, products }) => {
   const { id } = useParams();
@@ -43,7 +45,9 @@ const OrderDetail = ({ agentOrders, products }) => {
         <h2>Shipment - {thisOrder.shipment}</h2>
         <h2>Order status - {thisOrder.status}</h2>
         <h2>Created By - {thisOrder.createdBy}</h2>
-        <button>Back</button>
+        <Button size="small" color="info" variant="outlined">
+          <Link to="/orders">Back to Orders</Link>
+        </Button>
       </div>
       {productsInOrder.length > 0 && (
         <div className="products-list">
