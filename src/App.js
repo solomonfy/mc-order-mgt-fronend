@@ -13,7 +13,8 @@ import {
   Checkout,
   OrderDetail,
   Footer,
-  // Login
+  // Login,
+  NotFound,
 } from "./components/exportComponents";
 import "./App.css";
 
@@ -63,7 +64,7 @@ const App = () => {
 
   const fetchAgentInfo = async () => {
     const resp = await fetch(`${BASE_URL}/agents/list/${agentId}`).catch(
-      function(error) {
+      function (error) {
         console.log(error);
       }
     );
@@ -182,6 +183,7 @@ const App = () => {
               path="/product-detail/:id"
               element={<ProductDetail products={products} />}
             />
+            <Route path="/*" element={<NotFound />} />
           </Routes>
         </div>
 

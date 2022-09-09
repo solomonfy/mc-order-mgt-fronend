@@ -17,7 +17,7 @@ const therapeuticCategories = [
   "CNS DRUGS",
   "ANTI DIABETIC",
   "DERMATOLOGY",
-  "ANTI HISTAMIN"
+  "ANTI HISTAMIN",
 ];
 
 // const categories = {
@@ -59,7 +59,7 @@ function Products({ products }) {
             label="Category"
             onChange={handleChange}
           >
-            {therapeuticCategories.map((category) => {
+            {therapeuticCategories?.map((category) => {
               return <MenuItem value={category}>{category}</MenuItem>;
             })}
           </Select>
@@ -69,7 +69,7 @@ function Products({ products }) {
       <br />
 
       <Grid container justifyContent="center" spacing={4}>
-        {products.map((product) => (
+        {products?.map((product) => (
           <>
             <Grid key={product.id} item xs={12} sm={6} md={4} lg={3}>
               <ProductCard key={product.id} product={product} />
