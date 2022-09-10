@@ -17,11 +17,16 @@ export default makeStyles((theme) => ({
   },
   tableHeader: {
     backgroundColor: "#333",
-    // color: theme.palette.common.white,
-    // fontSize: 14,
+    color: theme.palette.common.white,
+    fontSize: 20,
   },
   tableHeaderRows: {
     color: theme.palette.common.white,
     fontSize: 18,
+  },
+  tableRows: {
+    color: theme.palette.common.black,
+    color: "inherit",
+    textDecoration: "none",
   },
 }));

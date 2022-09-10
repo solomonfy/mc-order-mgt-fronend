@@ -11,7 +11,7 @@ import {
 import "./Dashboard.css";
 import OrderSummary from "../../components/Order/OrderSummary/OrderSummary";
 
-const Dashboard = ({ allOrders, agentOrders, agentInfo }) => {
+const Dashboard = ({ agentOrders, agentInfo }) => {
   // let timeOfDay;
   let loggedInUser = agentInfo.agentName;
   const date = new Date();
@@ -66,7 +66,13 @@ const Dashboard = ({ allOrders, agentOrders, agentInfo }) => {
         >
           Place Order
         </Button>
-        <Button size="small" color="info" variant="outlined">
+        <Button
+          size="small"
+          color="info"
+          variant="outlined"
+          component={Link}
+          to="/orders"
+        >
           Check Order
         </Button>
       </CardActions>

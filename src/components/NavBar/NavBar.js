@@ -15,7 +15,7 @@ import { ShoppingCart, AccountCircle } from "@material-ui/icons";
 import mcLogo from "../../assets/mc_logo.png";
 import useStyles from "./navbar-styles";
 
-import { Link, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 import { useContext } from "react";
 import CartContext from "../../CartContext";
@@ -74,13 +74,12 @@ const NavBar = () => {
         <Tabs
           value={value}
           onChange={handleChange}
-          aria-label="basic tabs example"
         >
           <Typography
             variant="h6"
             className={classes.title}
             color="inherit"
-            component={Link}
+            component={NavLink}
             to="/"
           >
             <img
@@ -91,18 +90,18 @@ const NavBar = () => {
             />
             Medochemie
           </Typography>
-          <Tab label="Home" {...a11yProps(0)} component={Link} to="/" />
-          <Tab label="Orders" {...a11yProps(1)} component={Link} to="/orders" />
+          <Tab label="Home" {...a11yProps(0)} component={NavLink} to="/" />
+          <Tab label="Orders" {...a11yProps(1)} component={NavLink} to="/orders" />
           <Tab
             label="Products"
             {...a11yProps(2)}
-            component={Link}
+            component={NavLink}
             to="/products"
           />
           <Tab
             label="My Tasks"
             {...a11yProps(3)}
-            component={Link}
+            component={NavLink}
             to="/tasks"
           />
         </Tabs>
@@ -135,7 +134,7 @@ const NavBar = () => {
               <IconButton
                 aria-label="Show Cart Items"
                 color="inherit"
-                component={Link}
+                component={NavLink}
                 to="/cart"
               >
                 <Badge badgeContent={cartProducts.length} color="secondary">

@@ -10,70 +10,66 @@ import {
   Typography,
 } from "@material-ui/core";
 
-import "../Order.css";
+import "./OrderSummary.css";
 
 const OrderSummary = ({ agentOrders }) => {
-  const status = {
-    draft: "Draft",
-    under_review: "Under Review",
-    active: "Active",
-    completed: "Completed",
-    rejected: "Rejected",
-  };
-
-  // console.log(agentOrders);
-
-  let ourOrderCount;
-
-  let statusCount = {
-    draft: 0,
-    under_review: 0,
-    active: 0,
-    completed: 0,
-    rejected: 0,
-  };
-
-  let statusWithCount = [
-    { draft: 0 },
-    { under_review: 0 },
-    { active: 0 },
-    { completed: 0 },
-    { rejected: 0 },
+  const STATUS = [
+    { draft: "Draft" },
+    { under_review: "Under Review" },
+    { active: "Active" },
+    { completed: "Completed" },
+    { rejected: "Rejected" },
   ];
+
+  let draftCount = 0;
+  let underReviewCount = 0;
+  let activeCount = 0;
+  let completedCount = 0;
+  let rejectedCount = 0;
 
   let newStat = "";
   let arr;
+  let orderCount = agentOrders?.length;
 
-  if (agentOrders.length > 0) {
-    ourOrderCount = agentOrders.length;
-    agentOrders.map((order) => {
-      // for (let i = 0; i < statusWithCount.length; i++) {
-        if (order.status === Object.keys(statusWithCount[0])[0]) {
-          Object.values(statusWithCount[0])[0] += 1;
-        }
-        console.log(Object.values(statusWithCount[0])[0]);
-      // }
-      // for (let stat of statusWithCount) {
-      //   if (Object.keys(stat)[0] === order.status) {
-      //     console.log(Object.keys(stat)[0] === order.status);
-      //     Object.values(stat)[0] += 1;
-      //   }
-      //   console.log(Object.values(stat)[0]);
-      // }
-    });
+  if (orderCount > 0) {
+    for (let i = 0; i < agentOrders.length; i++) {
+      const orderStatus = agentOrders[i].status;
+      switch (orderStatus) {
+        case "Draft":
+          draftCount += 1;
+          break;
+        case "Active":
+          activeCount += 1;
+          break;
+        case "Under_Review":
+          underReviewCount += 1;
+          break;
+        case "Completed":
+          completedCount += 1;
+          break;
+        case "Rejected":
+          rejectedCount += 1;
+          break;
+        default:
+          console.log(`Sorry, there is no order status of ${orderStatus}`);
+      }
+    }
   }
-
   return (
     <div className="order-summary-main">
-      <Typography className="title">
-        ({ourOrderCount}) {ourOrderCount === 1 ? "Order" : "Orders"}
-      </Typography>
+      {orderCount > 0 ? (
+        <Typography className="title">
+          ({orderCount}) {orderCount === 1 ? "Order" : "Orders"}
+        </Typography>
+      ) : (
+        <Typography className="title">No orders to display</Typography>
+      )}
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              {statusWithCount.map((stat) => {
-                arr = Object.keys(stat);
+              {STATUS.map((stat) => {
+                arr = Object.values(stat);
                 newStat =
                   arr.length > 1
                     ? `${arr[0].toUpperCase()} ${arr[1].toUpperCase()}`
@@ -88,13 +84,21 @@ const OrderSummary = ({ agentOrders }) => {
           </TableHead>
           <TableBody>
             <TableRow>
-              {statusWithCount.map((stat) => {
-                return (
-                  <TableCell component="th" scope="row" align="right">
-                    {Object.values(stat)[0]}
-                  </TableCell>
-                );
-              })}
+              <TableCell component="th" scope="row" align="right">
+                {draftCount}
+              </TableCell>
+              <TableCell component="th" scope="row" align="right">
+                {underReviewCount}
+              </TableCell>
+              <TableCell component="th" scope="row" align="right">
+                {activeCount}
+              </TableCell>
+              <TableCell component="th" scope="row" align="right">
+                {completedCount}
+              </TableCell>
+              <TableCell component="th" scope="row" align="right">
+                {rejectedCount}
+              </TableCell>
             </TableRow>
           </TableBody>
         </Table>

@@ -21,7 +21,11 @@ import "./App.css";
 import { CartProvider } from "./CartContext";
 
 const App = () => {
+  // const agentId = "6318fa0af72172404e13fc07";
+  // no order for 6318fa0af72172404e13fc07
+
   const agentId = "6240dc0f5ce2052689ccdf24";
+  //4 orders for 6240dc0f5ce2052689ccdf24
 
   const BASE_URL = "http://localhost:2020/api/v1";
   const ORDER_URL = `${BASE_URL}/orders`;
@@ -48,12 +52,6 @@ const App = () => {
     const resp = await fetch(`${ORDER_URL}/list`);
     const data = await resp.json();
     return data.data.orders;
-  };
-
-  const fetchOrder = async (id) => {
-    const resp = await fetch(`${ORDER_URL}/list/${id}`);
-    const data = await resp.json();
-    // return data.data.orders;
   };
 
   const fetchAgentOrders = async () => {
