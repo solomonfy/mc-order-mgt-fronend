@@ -9,6 +9,7 @@ export default makeStyles((theme) => ({
   },
   root: {
     flexGrow: 1,
+    backgroundColor: "gray",
   },
 
   header: {

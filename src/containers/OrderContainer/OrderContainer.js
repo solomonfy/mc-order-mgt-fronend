@@ -12,7 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import useStyles from "./orderContainer-styles";
 import formatter from "../../util/formatter";
-import status from "../../constants/OrderStatus";
+import STATUS from "../../constants/OrderStatus";
 
 export default function OrderContainer({ agentOrders }) {
   const classes = useStyles();
@@ -59,7 +59,7 @@ export default function OrderContainer({ agentOrders }) {
                       align="center"
                       className={classes.tableRows}
                     >
-                      {status[order.status.toLowerCase()]}
+                      {STATUS[order.status.toLowerCase()]}
                     </TableCell>
                     <TableCell
                       scope="row"

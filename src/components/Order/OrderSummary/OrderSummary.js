@@ -11,37 +11,34 @@ import {
 } from "@material-ui/core";
 
 import "./OrderSummary.css";
+import orderStatus from "../../../constants/OrderStatus";
 
 const OrderSummary = ({ agentOrders }) => {
-  const STATUS = [
-    { draft: "Draft" },
-    { under_review: "Under Review" },
-    { active: "Active" },
-    { completed: "Completed" },
-    { rejected: "Rejected" },
-  ];
+  const STATUS = Object.keys(orderStatus);
 
   let draftCount = 0;
+  let submittedCount = 0;
   let underReviewCount = 0;
   let activeCount = 0;
   let completedCount = 0;
   let rejectedCount = 0;
 
-  let newStat = "";
-  let arr;
   let orderCount = agentOrders?.length;
 
   if (orderCount > 0) {
     for (let i = 0; i < agentOrders.length; i++) {
-      const orderStatus = agentOrders[i].status;
-      switch (orderStatus) {
+      const stat = agentOrders[i].status;
+      switch (stat) {
         case "Draft":
           draftCount += 1;
+          break;
+        case "Submitted":
+          submittedCount += 1;
           break;
         case "Active":
           activeCount += 1;
           break;
-        case "Under_Review":
+        case "Under Review":
           underReviewCount += 1;
           break;
         case "Completed":
@@ -49,9 +46,9 @@ const OrderSummary = ({ agentOrders }) => {
           break;
         case "Rejected":
           rejectedCount += 1;
-          break;
-        default:
-          console.log(`Sorry, there is no order status of ${orderStatus}`);
+        //   break;
+        // default:
+        //   console.log(`Sorry, there is no order status of ${orderStatus}`);
       }
     }
   }
@@ -69,14 +66,9 @@ const OrderSummary = ({ agentOrders }) => {
           <TableHead>
             <TableRow>
               {STATUS.map((stat) => {
-                arr = Object.values(stat);
-                newStat =
-                  arr.length > 1
-                    ? `${arr[0].toUpperCase()} ${arr[1].toUpperCase()}`
-                    : arr[0].toUpperCase();
                 return (
                   <TableCell component="th" scope="row" align="right">
-                    {newStat}
+                    {stat.toUpperCase()}
                   </TableCell>
                 );
               })}
@@ -86,6 +78,9 @@ const OrderSummary = ({ agentOrders }) => {
             <TableRow>
               <TableCell component="th" scope="row" align="right">
                 {draftCount}
+              </TableCell>
+              <TableCell component="th" scope="row" align="right">
+                {submittedCount}
               </TableCell>
               <TableCell component="th" scope="row" align="right">
                 {underReviewCount}
