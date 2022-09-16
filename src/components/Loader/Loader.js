@@ -5,7 +5,7 @@ import "./Loader.css";
 export default function Loader() {
   return (
     <>
-      <div className="loader">
+      {/* <div className="loader">
         <Box>
           <CircularProgress size="10rem" />
         </Box>
@@ -13,6 +13,13 @@ export default function Loader() {
 
       <div className="loader-text">
         <h2>Loading...</h2>
+      </div> */}
+      <div className="loader-container">
+        <div className="dots-container">
+          <div className="dot"></div>
+          <div className="dot"></div>
+          <div className="dot"></div>
+        </div>
       </div>
     </>
   );

@@ -48,7 +48,7 @@ function Products({ products }) {
       </Typography>
 
       <div>
-        <FormControl fullWidth>
+        <FormControl >
           <InputLabel id="demo-simple-select-label">
             Product Category
           </InputLabel>

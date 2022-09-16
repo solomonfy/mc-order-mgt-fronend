@@ -1,20 +1,26 @@
 .dashboard-container {
+  width: 100%;
   display: flex;
   justify-content: center;
-  margin-left: 15px;
+  margin-left: 3rem;
+  align-items: center;
 }
 
 .dashboard-greeting {
   flex: 1;
+  border-radius: 10px;
+  /* border: 1px solid black; */
 }
 
 .dashboard-summary {
+  flex: 1;
   margin-top: 50px;
   margin-right: 200px;
   justify-content: center;
   align-items: center;
   border: 1px solid black;
   border-radius: 10px;
+  background: white;
   /* padding-top: 50px; */
 }
 

@@ -26,7 +26,6 @@ export default makeStyles((theme) => ({
   },
   tableRows: {
     color: theme.palette.common.black,
-    color: "inherit",
     textDecoration: "none",
   },
 }));

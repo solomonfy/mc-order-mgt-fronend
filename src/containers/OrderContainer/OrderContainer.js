@@ -28,7 +28,7 @@ export default function OrderContainer({ agentOrders }) {
           <TableContainer component={Paper} className={classes.main}>
             <Table
               sx={{ minWidth: 650 }}
-              size="large"
+              size="medium"
               aria-label="a dense table"
             >
               <TableHead className={classes.tableHeader}>

@@ -76,6 +76,19 @@ const App = () => {
     return data;
   };
 
+  const fetchOrder = async (id) => {
+    try {
+      const res = await fetch(`${ORDER_URL}/list/${id}`);
+      const data = await res.json();
+      // setOrder(data.data.order);
+      let order = data?.data?.order;
+      console.log(order);
+      return order;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const submitOrder = async (order, agentId) => {
     const resp = await fetch(`${ORDER_URL}/create-order/${agentId}`, {
       method: "POST",
@@ -172,7 +185,12 @@ const App = () => {
             <Route
               path="/orders/:id"
               element={
-                <OrderDetail agentOrders={agentOrders} products={products} />
+                <OrderDetail
+                  agentOrders={agentOrders}
+                  products={products}
+                  fetchOrder={fetchOrder}
+                  // order={order}
+                />
               }
             />
 

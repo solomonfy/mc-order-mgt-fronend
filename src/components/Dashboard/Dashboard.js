@@ -82,7 +82,9 @@ const Dashboard = ({ agentOrders, agentInfo }) => {
   return (
     <div className="dashboard-container">
       <div className="dashboard-greeting">
-        <Box sx={{ maxWidth: 500 }} mt={12} mb={6}>
+        <Box
+        sx={{ maxWidth: 500 }} mt={12} mb={6}
+        >
           <Card variant="outlined">{card}</Card>
         </Box>
       </div>

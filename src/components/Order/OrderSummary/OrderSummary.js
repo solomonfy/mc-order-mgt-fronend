@@ -16,6 +16,7 @@ import orderStatus from "../../../constants/OrderStatus";
 const OrderSummary = ({ agentOrders }) => {
   const STATUS = Object.keys(orderStatus);
 
+  // need to update the counts as an array and loop to display on the table
   let draftCount = 0;
   let submittedCount = 0;
   let underReviewCount = 0;
@@ -23,11 +24,21 @@ const OrderSummary = ({ agentOrders }) => {
   let completedCount = 0;
   let rejectedCount = 0;
 
-  let orderCount = agentOrders?.length;
+  let statWithCount = {
+    draft: 0,
+    submitted: 0,
+    under_review: 0,
+    active: 0,
+    completed: 0,
+    rejected: 0,
+  };
+
+  const orderCount = agentOrders?.length;
 
   if (orderCount > 0) {
-    for (let i = 0; i < agentOrders.length; i++) {
-      const stat = agentOrders[i].status;
+    for (let order of agentOrders) {
+      
+      const stat = order.status;
       switch (stat) {
         case "Draft":
           draftCount += 1;
@@ -46,9 +57,9 @@ const OrderSummary = ({ agentOrders }) => {
           break;
         case "Rejected":
           rejectedCount += 1;
-        //   break;
-        // default:
-        //   console.log(`Sorry, there is no order status of ${orderStatus}`);
+          break;
+        default:
+          console.log(`There is no order status of ${orderStatus}`);
       }
     }
   }

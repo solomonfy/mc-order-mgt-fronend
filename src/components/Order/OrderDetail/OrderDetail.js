@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import formatter from "../../../util/formatter";
 import {
@@ -16,11 +16,22 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-const OrderDetail = ({ agentOrders, products }) => {
+const OrderDetail = ({ agentOrders, products, fetchOrder }) => {
   const { id } = useParams();
 
+  // const [order, setOrder] = useState({});
+  // console.log(id);
+
+  // useEffect(() => {
+  //   console.log(id);
+  //   setOrder(fetchOrder(id));
+  // }, []);
+
+  // console.log(order);
+
   const order = agentOrders.find((order) => order.id === id);
-  const productIdsWithQuantities = order.productIdsWithQuantities;
+  // const order = fetchOrder(id);
+  const productIdsWithQuantities = order?.productIdsWithQuantities;
   const productsInOrder = [];
 
   for (const item of productIdsWithQuantities) {
@@ -46,7 +57,7 @@ const OrderDetail = ({ agentOrders, products }) => {
             <Typography variant="h5" component="div">
               {order.orderNumber}
             </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+            <Typography sx={{ mb: 1.5 }} color="secondary">
               {formatter.format(order.amount)}
             </Typography>
             <Typography variant="body2"> {order.shipment}</Typography>
