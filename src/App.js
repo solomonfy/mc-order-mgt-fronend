@@ -17,6 +17,7 @@ import {
   NotFound,
 } from "./components/exportComponents";
 import "./App.css";
+import { BASE_URL, ORDER_URL, CAMUNDA_TASK } from "./constants/Ports";
 
 import { CartProvider } from "./CartContext";
 
@@ -26,10 +27,6 @@ const App = () => {
 
   const agentId = "6240dc0f5ce2052689ccdf24";
   //4 orders for 6240dc0f5ce2052689ccdf24
-
-  const BASE_URL = "http://localhost:2020/api/v1";
-  const ORDER_URL = `${BASE_URL}/orders`;
-  const CAMUNDA_TASK = "http://localhost:2525/engine-rest/task/";
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -87,16 +84,6 @@ const App = () => {
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const submitOrder = async (order, agentId) => {
-    const resp = await fetch(`${ORDER_URL}/create-order/${agentId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(order),
-    });
   };
 
   useEffect(() => {
@@ -172,7 +159,8 @@ const App = () => {
               element={
                 <Cart
                   handleQtyChange={handleQtyChange}
-                  submitOrder={submitOrder}
+                  // submitOrder={submitOrder}
+                  agentId={agentId}
                 />
               }
             />
@@ -203,7 +191,7 @@ const App = () => {
           </Routes>
         </div>
 
-        {/* <Footer /> */}
+        <Footer />
       </CartProvider>
     );
   }

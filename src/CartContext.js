@@ -23,6 +23,22 @@ export function CartProvider({ children }) {
     console.log(event.target.value);
   };
 
+  const submitOrder = async (order, agentId) => {
+    let responseObject = {
+      timeStamp: new Date(),
+      data: { order: order },
+    };
+    console.log(agentId);
+    
+    // const resp = await fetch(`${ORDER_URL}/create-order/${agentId}`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ responseObject: responseObject }),
+    // });
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -31,6 +47,7 @@ export function CartProvider({ children }) {
         addToCart,
         removeFromCart,
         emptyCart,
+        submitOrder,
       }}
     >
       {children}

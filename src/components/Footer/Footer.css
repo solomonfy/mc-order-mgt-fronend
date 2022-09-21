@@ -1,17 +1,23 @@
 .footer-container {
   background-color: black;
   color: white;
-  height: 10rem;
-  align-items: center;
-  justify-content: center;
-  margin-top: -180px;
+  height: 6rem;
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* margin-top: -180px; */
   /* negative value of footer height */
-  clear: both;
+  /* clear: both; */
   position: fixed;
-  bottom: 0;
+  right: 0;
   width: 100%;
-  left:0;
+  /* left:0; */
+  /* position: absolute; */
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  overflow: hidden;
 }
 
 .footer {
+
 }

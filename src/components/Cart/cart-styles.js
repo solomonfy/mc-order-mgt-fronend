@@ -3,12 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   title: {
-    marginTop: "5%",
     marginBottom: "2%",
     align: "center",
+    alignItems: "center",
   },
   header: {
-    marginTop: "5%",
     width: "auto",
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
@@ -18,9 +17,7 @@ export default makeStyles((theme) => ({
       marginRight: "auto",
     },
   },
-  cardButtons:{
-    
-  },
+  cardButtons: {},
   emptyButton: {
     minWidth: "150px",
     [theme.breakpoints.down("xs")]: {
@@ -41,5 +38,9 @@ export default makeStyles((theme) => ({
     marginTop: "10%",
     width: "100%",
     justifyContent: "space-between",
+  },
+
+  tableHeader: {
+    fontWeight: "bold",
   },
 }));

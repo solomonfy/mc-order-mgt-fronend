@@ -10,12 +10,17 @@ import {
 } from "@material-ui/core";
 import "./Dashboard.css";
 import OrderSummary from "../../components/Order/OrderSummary/OrderSummary";
+import calculateDateDifference from "../../util/calcDateDifference";
 
 const Dashboard = ({ agentOrders, agentInfo }) => {
   // let timeOfDay;
   let loggedInUser = agentInfo.agentName;
-  const date = new Date();
-  const hours = date.getHours();
+  const presentDate = new Date();
+  const hours = presentDate.getHours();
+
+  //npm install moment --save
+  const moment = require("moment");
+  let lastDateOfYear = moment(presentDate).endOf("year");
 
   const timeOfDay = () => {
     if (hours < 12) {
@@ -81,16 +86,28 @@ const Dashboard = ({ agentOrders, agentInfo }) => {
 
   return (
     <div className="dashboard-container">
-      <div className="dashboard-greeting">
-        <Box
-        sx={{ maxWidth: 500 }} mt={12} mb={6}
-        >
-          <Card variant="outlined">{card}</Card>
-        </Box>
+      <div>
+        <div className="dashboard-greeting">
+          <Box sx={{ maxWidth: 500 }} mt={12} mb={6}>
+            <Card variant="outlined">{card}</Card>
+          </Box>
+        </div>
+        <div className="dashboard-summary">
+          <OrderSummary agentOrders={agentOrders} />
+        </div>
       </div>
-      <div className="dashboard-summary">
-        <OrderSummary agentOrders={agentOrders} />
+      <div>
+        <div>
+          <h2>
+            {`Fiscal Year Ending on 
+            ${lastDateOfYear.format("MMM, Do YYYY")}
+          `}
+          </h2>
+          <h2>{calculateDateDifference()}</h2>
+        </div>
+        Your annual target vs achieved
       </div>
+      <div></div>
     </div>
   );
 };

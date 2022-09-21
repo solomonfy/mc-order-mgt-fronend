@@ -12,6 +12,7 @@ import {
 
 import "./OrderSummary.css";
 import orderStatus from "../../../constants/OrderStatus";
+import capitalizeFirstLetter from "../../../util/capitalizeFirstLetter";
 
 const OrderSummary = ({ agentOrders }) => {
   const STATUS = Object.keys(orderStatus);
@@ -37,8 +38,7 @@ const OrderSummary = ({ agentOrders }) => {
 
   if (orderCount > 0) {
     for (let order of agentOrders) {
-      
-      const stat = order.status;
+      const stat = capitalizeFirstLetter(order.status);
       switch (stat) {
         case "Draft":
           draftCount += 1;
@@ -49,7 +49,7 @@ const OrderSummary = ({ agentOrders }) => {
         case "Active":
           activeCount += 1;
           break;
-        case "Under Review":
+        case "Under review":
           underReviewCount += 1;
           break;
         case "Completed":

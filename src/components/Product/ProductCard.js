@@ -40,9 +40,26 @@ function ProductCard({ product }) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   };
 
+  let rating = 2;
+
   return (
     <>
       <Card className="card-root">
+        {/* <ul
+          className="rating"
+          style={{
+            listStyle: "none",
+            display: "grid",
+            display: "inline-block",
+            textAlign: "center",
+          }}
+        >
+          <li className={"filled"}>{"\u2605"}</li>
+          <li className={"filled"}>{"\u2605"}</li>
+          <li className={"filled"}>{"\u2605"}</li>
+          <li>{"\u2605"}</li>
+          <li>{"\u2605"}</li>
+        </ul> */}
         <Link to={`/product-detail/${product.id}`}>
           <CardMedia
             className="card-media product-image"
@@ -57,7 +74,9 @@ function ProductCard({ product }) {
               {product.brandName.toUpperCase()} {}
               <Typography variant="overline">{product.strength}</Typography>
             </Typography>
-            <Typography variant="subtitle1">{formatter.format(product.unitPrice)}</Typography>
+            <Typography variant="subtitle1">
+              {formatter.format(product.unitPrice)}
+            </Typography>
           </div>
           <Typography variant="body2" color="textSecondary">
             {" "}

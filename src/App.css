@@ -4,7 +4,19 @@
 
 html,
 body {
-  margin: 0;
   height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  margin: 0;
   background-color: rgb(224, 224, 224);
+  width: 100%;
+}
+
+.section {
+  position: absolute;
+  top: 200px;
+  bottom: 200px;
+  left: 0px;
+  right: 0px;
+  overflow: auto;
 }

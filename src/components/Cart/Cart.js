@@ -21,14 +21,42 @@ import capitalizeFirstLetter from "../../util/capitalizeFirstLetter";
 import { useContext } from "react";
 import CartContext from "../../CartContext";
 
-export default function Cart({addOrder}) {
-  const { cartProducts, removeFromCart, emptyCart, changeProductQty } =
-    useContext(CartContext);
+export default function Cart({ agentId }) {
+  const {
+    cartProducts,
+    removeFromCart,
+    emptyCart,
+    submitOrder,
+    changeProductQty,
+  } = useContext(CartContext);
+
+  const [order, setOrder] = useState({});
+  const [cartProductsWithQty, setCartProductsWithQty] = useState([]);
+  const [prodQty, setProductQty] = useState();
 
   const classes = useStyles();
   const isEmpty = cartProducts.length === 0;
   const TAX_RATE = 0;
   let rows = [];
+
+  const getProductsWithQty = (id, qty) => {
+    console.log(id);
+    console.log(qty);
+    //productIdsWithQuantities[0].productId
+    //productIdsWithQuantities[0].quantity
+    //setTheObject(prevState => ({ ...prevState, currentOrNewKey: newValue}));
+    setCartProductsWithQty((prev) => ({
+      ...prev,
+      productId: id,
+      quantity: qty,
+    }));
+    handleSubmit();
+  };
+
+  const handleSubmit = () => {
+    submitOrder(order, agentId);
+    console.log(cartProductsWithQty);
+  };
 
   function priceRow(qty, unitPrice) {
     return qty * unitPrice;
@@ -71,6 +99,7 @@ export default function Cart({addOrder}) {
       item.price
     );
     rows.push(row);
+    // console.log(row)
   }
 
   function calcSubTotal(items) {
@@ -78,13 +107,23 @@ export default function Cart({addOrder}) {
   }
 
   const invoiceSubtotal = calcSubTotal(rows);
-  const invoiceTaxes = TAX_RATE * invoiceSubtotal;
+  const invoiceTaxes = (TAX_RATE * invoiceSubtotal) / 100;
   const invoiceTotal = invoiceTaxes + invoiceSubtotal;
+
+  const tableHead = [
+    "Generic Name",
+    "Strength",
+    "Pack Size",
+    "Unit Price",
+    "Quantity",
+    "Subtotal",
+    "Remove",
+  ];
 
   const EmptyCart = () => {
     return (
       <>
-        <Typography variant="subtitle1" gutterBottom>
+        <Typography variant="h6" gutterBottom>
           No product has been added in the cart {}
         </Typography>
         <Button
@@ -123,69 +162,60 @@ export default function Cart({addOrder}) {
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 2 } }}
               >
-                <TableCell align="center">Brand Name</TableCell>
-                <TableCell align="center">Generic Name</TableCell>
-                <TableCell align="center">Strength&nbsp;</TableCell>
-                <TableCell align="center">Pack Size&nbsp;</TableCell>
-                <TableCell align="center">Unit Price&nbsp;</TableCell>
-                <TableCell align="center">Quantity&nbsp;</TableCell>
-                <TableCell align="center">Subtotal &nbsp;</TableCell>
-                <TableCell align="center"></TableCell>
+                <TableCell align="center" className={classes.tableHeader}>
+                  Brand Name
+                </TableCell>
+                <TableCell align="center" className={classes.tableHeader}>
+                  Generic Name
+                </TableCell>
+                <TableCell align="center" className={classes.tableHeader}>
+                  Strength&nbsp;
+                </TableCell>
+                <TableCell align="center" className={classes.tableHeader}>
+                  Pack Size&nbsp;
+                </TableCell>
+                <TableCell align="center" className={classes.tableHeader}>
+                  Unit Price&nbsp;
+                </TableCell>
+                <TableCell align="center" className={classes.tableHeader}>
+                  Quantity&nbsp;
+                </TableCell>
+                <TableCell align="center" className={classes.tableHeader}>
+                  Subtotal &nbsp;
+                </TableCell>
+                <TableCell align="center">Remove</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.map((row) => (
                 <TableRow
-                  key={row.brandName}
+                  key={row.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  onChange={() => getProductsWithQty(row.id, row.qty)}
                 >
-                  <TableCell component="th" scope="row">
+                  <TableCell align="center" component="th" scope="row">
                     {row.brandName} {capitalizeFirstLetter(row.formulation)}
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align="center">
                     {capitalizeFirstLetter(row.genericName)}
                   </TableCell>
-                  <TableCell align="right">{row.strength}</TableCell>
-                  <TableCell align="right">{row.packSize}</TableCell>
-                  <TableCell align="right">
+                  <TableCell align="center">{row.strength}</TableCell>
+                  <TableCell align="center">{row.packSize}</TableCell>
+                  <TableCell align="center">
                     {formatter.format(row.unitPrice)}
                   </TableCell>
-                  <TableCell align="right">
-                    {/* <input
+                  <TableCell align="center">
+                    <input
                       type="number"
-                      e
-                      value={row.qty}
-                      onChange={changeProductQty}
-                      min={100}
-                      max={10000}
-                    /> */}
-
-                    <div className={classes.cardButtons}>
-                      {/* <Button
-                        size="small"
-                        type="button"
-                        variant="contained"
-                        color="secondary"
-                      >
-                        -
-                      </Button> */}
-
-                      <Typography>{row.qty}</Typography>
-
-                      {/* <Button
-                        size="small"
-                        type="button"
-                        variant="contained"
-                        color="primary"
-                      >
-                        +
-                      </Button> */}
-                    </div>
+                      name="qty"
+                      value={prodQty}
+                      onChange={(e) => console.log(e.target.value)}
+                    ></input>
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align="center">
                     {formatter.format(row.price)}
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align="center">
                     <DeleteForeverSharpIcon
                       className={classes.emptyButton}
                       size="large"
@@ -197,25 +227,79 @@ export default function Cart({addOrder}) {
                   </TableCell>
                 </TableRow>
               ))}
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell>
+                  <Typography
+                    variant="h8"
+                    mt={10}
+                    mb={10}
+                    className={classes.tableHeader}
+                    align="right"
+                  >
+                    Sub-total:
+                  </Typography>
+                </TableCell>
+                <TableCell className={classes.tableHeader} align="right">
+                  {formatter.format(invoiceSubtotal)}
+                </TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+              {TAX_RATE > 0 && (
+                <TableRow>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                  <TableCell>
+                    <Typography
+                      variant="h8"
+                      mt={10}
+                      mb={10}
+                      className={classes.tableHeader}
+                      align="left"
+                    >
+                      Tax ({TAX_RATE}%):
+                    </Typography>
+                  </TableCell>
+                  <TableCell className={classes.tableHeader} align="left">
+                    {formatter.format(invoiceTaxes)}
+                  </TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
+              )}
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell>
+                  <Typography
+                    variant="h8"
+                    gutterBottom
+                    mt={10}
+                    mb={10}
+                    className={classes.tableHeader}
+                    align="right"
+                  >
+                    Total:
+                  </Typography>
+                </TableCell>
+                <TableCell className={classes.tableHeader} align="right">
+                  {formatter.format(invoiceTotal)}
+                </TableCell>
+                <TableCell></TableCell>
+              </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
-        <div className={classes.cardDetails}>
-          <Typography variant="h6" mt={10} mb={10}>
-            Sub-total: {formatter.format(invoiceSubtotal)}
-          </Typography>
-        </div>
-        <div>
-          <Typography variant="h6" mt={10} mb={10}>
-            Tax ({TAX_RATE * 100}%): {formatter.format(invoiceTaxes)}
-          </Typography>
-        </div>
-        <hr />
-        <div>
-          <Typography variant="h6" gutterBottom mt={10} mb={10}>
-            Total: {formatter.format(invoiceTotal)}
-          </Typography>
-        </div>
+        <br />
         <div className={classes.cardButtons}>
           <Button
             className={classes.emptyButton}
@@ -244,9 +328,9 @@ export default function Cart({addOrder}) {
             type="button"
             variant="contained"
             color="primary"
-            to="/checkout"
-            component={Link}
-            onClick={addOrder}
+            // to="/checkout"
+            // component={Link}
+            onClick={(e) => handleSubmit(e)}
           >
             Submit Order
           </Button>
